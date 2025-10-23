@@ -7,17 +7,16 @@ const Header = ({ setBookData }) => {
   const searchBook = (e) => {
     if (e.key === 'Enter') {
       const api_key = import.meta.env.VITE_GBOOKS_API_KEY;
-      let url = `https://www.googleapis.com/books/v1/volumes?q=${search}&key=${api_key}&maxResults=10`;
+      let url = `https://www.googleapis.com/books/v1/volumes?q=${search}&key=${api_key}&maxResults=40`;
 
       axios
         .get(url)
-        .then((res) => setBookData(res.data.items))
+        .then((res) => {
+          setBookData(res.data.items);
+          console.log(res.data);
+        })
         .catch((err) => console.log(err));
     }
-  };
-
-  const handleChange = (e) => {
-    setSearch(e.target.value);
   };
 
   return (

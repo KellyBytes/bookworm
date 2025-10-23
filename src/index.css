@@ -345,3 +345,19 @@ input[type="color"] {
   background-size: 100%;
   -webkit-box-decoration-break: clone;
 }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 500ms ease-in-out forwards;
+}
