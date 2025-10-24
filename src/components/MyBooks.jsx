@@ -30,7 +30,7 @@ const MyBooks = () => {
             {currentlyReading.map((item) => (
               <div
                 key={item.id}
-                className="w-40 bg-(--bg-top) rounded shadow p-2 shrink-0"
+                className="w-40 bg-(--bg-top) rounded shadow p-2 shrink-0 cursor-pointer hover:opacity-80 hover:scale-98 duration-200"
                 onClick={() => {
                   setBookItem(item);
                   setShow(true);

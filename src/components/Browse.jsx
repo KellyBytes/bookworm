@@ -39,7 +39,8 @@ const Browse = ({ bookData, searchBook }) => {
             let thumbnail = book.volumeInfo.imageLinks?.smallThumbnail;
             let amount = book.saleInfo.listPrice?.amount
               ? '$' + book.saleInfo.listPrice?.amount
-              : ' n/a';
+              : 'Price u/a';
+            let printType = book.volumeInfo.printType;
 
             if (!thumbnail) thumbnail = noImg;
 
@@ -59,7 +60,7 @@ const Browse = ({ bookData, searchBook }) => {
                     {book.volumeInfo.title}
                   </h4>
                   <p className="amount absolute bottom-3 left-3 right-3 bg-(--primary)/80 text-stone-200 text-center text-xs font-bold p-1">
-                    {amount}
+                    {`${printType} - ${amount}`}
                   </p>
                 </div>
               </div>

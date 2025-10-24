@@ -51,6 +51,23 @@ const Modal = ({ show, bookItem, onClose }) => {
     setTimeout(() => setMessage(''), 2000);
   };
 
+  const renderStars = (rating) => {
+    const stars = [];
+    const full = Math.floor(rating);
+    const half = rating % 1 >= 0.5;
+
+    for (let i = 0; i < full; i++) {
+      stars.push(<span key={`full-${i}`}>★</span>);
+    }
+    if (half) {
+      stars.push(<span key="half">☆</span>); // 半分風
+    }
+    while (stars.length < 5) {
+      stars.push(<span key={`empty-${stars.length}`}>✩</span>);
+    }
+    return stars;
+  };
+
   return (
     <>
       <div
@@ -84,8 +101,13 @@ const Modal = ({ show, bookItem, onClose }) => {
                 ))}
               </h3>
               <h4 className="font-serrat text-sm text-stone-700">
-                {item.publisher} <small>{item.publishedDate}</small>
+                {`${item.publisher}; ${item.publishedDate}; p. ${item.pageCount}`}
               </h4>
+              {item.averageRating && (
+                <div className="flex items-center gap-2 mt-2 text-yellow-500 text-lg">
+                  {renderStars(item.averageRating)}
+                </div>
+              )}
               <div className="buttons flex justify-center mt-4 gap-x-4 relative">
                 <a href={item.previewLink} target="_blank" rel="noreferrer">
                   <button
