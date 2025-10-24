@@ -23,7 +23,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
   if (!show || !bookItem) return null;
 
-  let item = bookItem.volumeInfo;
+  let item = bookItem.volumeInfo || bookItem.item;
   let thumbnail = item.imageLinks?.smallThumbnail;
 
   const handleOptionClick = (status) => {
@@ -53,8 +53,14 @@ const Modal = ({ show, bookItem, onClose }) => {
 
   return (
     <>
-      <div className="overlay min-h-100vh w-full fixed inset-0 z-[9999] bg-linear-to-br from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.8)] flex justify-center items-center">
-        <div className="overlay-inner bg-stone-200 w-xl h-11/12 p-6 rounded-xl text-xl overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none' [scrollbar-width:'none'] relative">
+      <div
+        className="overlay min-h-100vh w-full fixed inset-0 z-[9999] bg-linear-to-br from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.8)] flex justify-center items-center"
+        onClick={onClose}
+      >
+        <div
+          className="overlay-inner bg-stone-200 w-xl h-11/12 p-6 rounded-xl text-xl overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none' [scrollbar-width:'none'] relative"
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
             className="close absolute top-4 right-4 outline-none border-none text-lg bg-transparent"
             onClick={onClose}
