@@ -27,6 +27,19 @@
   }
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scroll-snap-center {
+    scroll-snap-align: center;
+  }
+}
+
 :root {
   --bg-bottom: #e7e5e4; /* stone-200 */
   --bg-base: #f5f5f4; /* stone-100 */

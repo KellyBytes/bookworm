@@ -75,7 +75,7 @@ const Modal = ({ show, bookItem, onClose }) => {
         onClick={onClose}
       >
         <div
-          className="overlay-inner bg-stone-200 w-xl h-11/12 p-6 rounded-xl text-xl overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none' [scrollbar-width:'none'] relative"
+          className="overlay-inner bg-stone-200 w-xl h-11/12 p-6 rounded-xl text-xl overflow-y-auto no-scrollbar relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
