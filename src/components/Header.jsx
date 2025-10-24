@@ -1,45 +1,72 @@
 import { useState } from 'react';
-import axios from 'axios';
 
-const Header = ({ setBookData }) => {
+const Header = ({ showBrowse, setShowBrowse, setBookData, searchBook }) => {
+  const [inputVal, setInputVal] = useState('');
   const [search, setSearch] = useState('');
 
-  const searchBook = (e) => {
-    if (e.key === 'Enter') {
-      const api_key = import.meta.env.VITE_GBOOKS_API_KEY;
-      let url = `https://www.googleapis.com/books/v1/volumes?q=${search}&key=${api_key}&maxResults=40`;
+  const handleClickMyBooks = () => {
+    setShowBrowse(false);
+  };
 
-      axios
-        .get(url)
-        .then((res) => {
-          setBookData(res.data.items);
-          console.log(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
+  const handleClickBrowse = () => {
+    setShowBrowse(true);
+    setBookData([]);
+  };
+
+  const handleChange = (e) => {
+    setInputVal(e.target.value);
+    setSearch(inputVal);
   };
 
   return (
-    <header className="w-full max-w-5xl flex justify-between gap-4">
-      <div className="flex flex-col relative">
+    <header className="w-full max-w-5xl flex justify-between items-stretch gap-x-4">
+      <div className="flex flex-col py-4 relative">
         <h1 className="font-bio text-large text-gradient">Bookworm</h1>
-        <small className="absolute -bottom-2 text-nowrap italic text-gradient">
-          A room without books is like a body without a soul.
-        </small>
       </div>
+      <nav className="flex">
+        <button
+          className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--text-highlight) transition-colors duration-300 ${
+            !showBrowse
+              ? 'text-(--primary) font-semibold underline underline-offset-3 decoration-2'
+              : ''
+          }`}
+          onClick={handleClickMyBooks}
+        >
+          My Books
+        </button>
+        <button
+          className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--text-highlight) transition-colors duration-300 ${
+            showBrowse
+              ? 'text-(--primary) font-semibold underline underline-offset-3 decoration-2'
+              : ''
+          }`}
+          onClick={handleClickBrowse}
+        >
+          Browse
+        </button>
+      </nav>
       <div className="search flex relative">
         <input
           type="text"
-          className="w-md placeholder:text-stone-400 focus:placeholder:text-transparent"
+          className="w-sm h-10 self-center placeholder:text-(--text-muted) focus:placeholder:text-transparent"
           placeholder="Search books"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onFocus={() => setSearch('')}
-          onKeyDown={searchBook}
+          value={inputVal}
+          onChange={handleChange}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              searchBook(search);
+              setInputVal('');
+            }
+          }}
         />
-        {/* <button> */}
-        <i className="bx bx-search text-2xl text-stone-500 absolute right-2 top-2 cursor-pointer"></i>
-        {/* </button> */}
+        <button
+          onClick={() => {
+            searchBook(search);
+            setInputVal('');
+          }}
+        >
+          <i className="bx bx-search text-2xl text-stone-500 absolute right-2 top-6 cursor-pointer"></i>
+        </button>
       </div>
     </header>
   );

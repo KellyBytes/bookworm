@@ -61,15 +61,15 @@ const Modal = ({ show, bookItem, onClose }) => {
           >
             <i className="fas fa-times"></i>
           </button>
-          <div className="inner-container mt-8 flex justify-between">
+          <div className="inner-container w-lg flex justify-center mt-8 gap-x-6">
             <img
               src={thumbnail}
               alt="thumbnail"
-              className="mr-6 w-36 h-52 object-cover"
+              className="w-36 h-52 object-cover"
             />
             <div className="info">
               <h1 className="font-bitter tracking-wide">{item.title}</h1>
-              <h3 className="mt-3 font-comfortaa font-light text-stone-600">
+              <h3 className="mt-3 font-serrat font-semibold text-(--text-muted)">
                 {item.authors.map((author, index) => (
                   <span key={`author-${index}`}>
                     {author}
@@ -77,13 +77,13 @@ const Modal = ({ show, bookItem, onClose }) => {
                   </span>
                 ))}
               </h3>
-              <h4 className="font-comfortaa text-sm text-stone-700">
+              <h4 className="font-serrat text-sm text-stone-700">
                 {item.publisher} <small>{item.publishedDate}</small>
               </h4>
-              <div className="buttons flex justify-center mt-4 gap-x-4">
+              <div className="buttons flex justify-center mt-4 gap-x-4 relative">
                 <a href={item.previewLink} target="_blank" rel="noreferrer">
                   <button
-                    className="w-24 rounded-sm py-1.5 px-2 bg-blue-600 text-blue-50 text-sm font-semibold hover:scale-98 hover:opacity-90 active:translate-y-0.5 duration-200"
+                    className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-blue-600 text-blue-50 text-sm font-semibold hover:scale-98 hover:opacity-90 active:translate-y-0.5 duration-200"
                     onClick={onClose}
                   >
                     More
@@ -92,7 +92,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
                 <div className="relative" ref={menuRef}>
                   <button
-                    className="w-48 rounded-sm py-1.5 px-2 bg-blue-200 text-(--text-base) text-sm font-semibold hover:scale-98 hover:opacity-90 active:translate-y-0.5 duration-200"
+                    className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-blue-200 text-(--text-base) text-sm font-semibold hover:scale-98 hover:opacity-90 active:translate-y-0.5 duration-200"
                     onClick={() => setShowMenu((prev) => !prev)}
                   >
                     Add to My Books
@@ -117,19 +117,18 @@ const Modal = ({ show, bookItem, onClose }) => {
                     </div>
                   )}
                 </div>
+                {message && (
+                  <p className="text-center mt-3 text-sm font-semibold text-green-700 animate-fade-in absolute -bottom-6 right-12 z-50">
+                    {message}
+                  </p>
+                )}
               </div>
-
-              {message && (
-                <p className="text-center mt-3 text-sm font-semibold text-green-700 animate-fade-in">
-                  {message}
-                </p>
-              )}
             </div>
           </div>
 
-          <h4 className="description mt-8 text-pretty text-sm">
+          <p className="description mt-8 text-pretty text-sm">
             {item.description}
-          </h4>
+          </p>
         </div>
       </div>
     </>

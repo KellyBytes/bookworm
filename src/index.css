@@ -8,11 +8,14 @@
 
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&display=swap);
 
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", sans-serif;
   --font-bitter: "Bitter", serif;
+  --font-serrat: "Montserrat", sans-serif;
   --font-comfortaa: "Comfortaa", sans-serif;
   --font-eczar: "Eczar", serif;
   --font-bio: "BioRhyme", serif;
@@ -25,9 +28,6 @@
 }
 
 :root {
-  --bg-bottom: hsl(0 0% 100%); /* #fafafa */
-  --bg-base: hsl(240 20% 98%); /* #f9f9fb */
-  --bg-top: hsl(240 40% 93%); /* #e6e6f4 */
   --bg-bottom: #e7e5e4; /* stone-200 */
   --bg-base: #f5f5f4; /* stone-100 */
   --bg-top: #fafaf9; /* stone-50 */
@@ -35,19 +35,20 @@
   --bg-accent: hsl(240 15% 80%); /* #c4c4d4 */
   --bg-muted: hsl(240 15% 80% / 0.5); /* #c4c4d4 */
 
-  --text-top: hsl(230 75% 40%); /* #1933b3 */
-  --text-base: hsl(230 75% 15%); /* #0a1343 */
   --text-dark: #1c1917; /* stone-900 */
   --text-base: #292524; /* stone-800 */
   --text-light: #44403c; /* stone-700 */
+  --text-muted: #57534e; /* stone-600 */
+  --text-highlight: #fafaf9; /* stone-50 */
 
-  --text-muted: hsl(230 75% 30%); /* #132686 */
   --text-link: hsl(221 83% 65%);
   --text-link-muted: hsl(221 83% 55% / 0.2);
 
   --accent: hsl(220 100% 60%);
   --primary: hsl(35 58% 75%);
   --secondary: hsl(25 44% 32%);
+  --primary: #92400e;
+  --secondary: #ca8a04;
 
   --gradient-start: hsl(250 100% 65%); /* #6a4dff */
   --gradient-end: hsl(170 100% 65%); /* #4dffe1 */
@@ -57,11 +58,11 @@
   --border-base: hsl(229 40% 30%);
   --border-muted: hsl(229 40% 60%);
   --border-highlight: hsl(229 40% 80%);
-  --border-base: #57534e; /* stone-600 */
-  --border-muted: #57534ea4;
+  --border-base: #a8a29e; /* stone-400 */
+  --border-muted: #a8a29e7a;
   --border-highlight: #a8a29e; /* stone-400 */
 
-  --border-radius-small: 0.5rem;
+  --border-radius-small: 0.25rem;
   --border-radius-large: 0.75rem;
   --highlight-border-radius: 0.5rem;
 
@@ -95,25 +96,14 @@
     --border-base: hsl(229 40% 30%);
     --border-muted: hsl(229 40% 60%);
     --border-highlight: hsl(229 40% 80%);
-
-    --border-radius-small: 0.5rem;
-    --border-radius-large: 0.75rem;
-    --highlight-border-radius: 0.5rem;
-
-    --shadow: 0px 2px 2px hsla(0, 0%, 0%, 0.17),
-      0px 4px 4px hsla(0, 0%, 0%, 0.15);
-    --shadow-large: -1px -1px 4px #0022ffbf, 2px 2px 10px #0022ffbf,
-      0 0 20px #0022ffbf;
-
-    --padding-small: 1rem;
-    --padding-large: 2rem;
   }
 }
 
 #root {
   min-height: 100vh;
   width: 100%;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,11 +111,11 @@
   color: var(--text-base);
 }
 
-header,
+/* header,
 main,
 footer {
   padding: 1.5rem;
-}
+} */
 
 main {
   flex: 1;
@@ -153,9 +143,7 @@ button {
 } */
 
 .text-large {
-  font-size: 1.875rem;
   font-size: 2rem;
-  line-height: 2.25rem;
   font-weight: bold;
   color: var(--text-light);
 }
@@ -262,7 +250,7 @@ select {
   border: 1px solid var(--border-base);
   color: var(--text-base);
   padding: 0.5rem 0.75rem;
-  border-radius: var(--border-radius-small);
+  border-radius: 0.25rem;
   /* width: 100%; */
   /* max-width: fit-content; */
   outline: none;
@@ -339,8 +327,8 @@ input[type="color"] {
   -webkit-background-clip: text;
   background-image: linear-gradient(
     135deg,
-    var(--gradient-start) 0,
-    var(--gradient-end) 100%
+    var(--primary) 0,
+    var(--secondary) 100%
   );
   background-size: 100%;
   -webkit-box-decoration-break: clone;
