@@ -31,8 +31,22 @@ const MyBooks = () => {
     const item = itemRefs.current[index];
 
     if (container && item) {
+      const containerRect = container.getBoundingClientRect();
+      const itemRect = item.getBoundingClientRect();
+
+      const paddingLeft = 16;
+
+      let left =
+        container.scrollLeft +
+        (itemRect.left - containerRect.left) -
+        paddingLeft;
+
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      if (left > maxScrollLeft) left = maxScrollLeft;
+      if (left < 0) left = 0;
+
       container.scrollTo({
-        left: item.offsetLeft,
+        left,
         behavior: 'smooth',
       });
       setActiveIndex(index);
@@ -75,9 +89,9 @@ const MyBooks = () => {
   }, [currentlyReading]);
 
   return (
-    <div className="my-books-container w-full max-w-3xl mx-auto mt-8">
+    <div className="my-books-container w-full max-w-3xl mx-auto my-8">
       {/* Currently Reading */}
-      <div className="mb-8">
+      <section className="mb-12">
         <h2 className="font-bold mb-2">Currently Reading</h2>
         {currentlyReading.length > 0 ? (
           <>
@@ -101,7 +115,7 @@ const MyBooks = () => {
                   <img
                     src={item.item.imageLinks?.smallThumbnail}
                     alt={item.item.title}
-                    className="w-full h-40 object-cover rounded"
+                    className="w-full h-40 object-cover rounded border border-(--border-muted)"
                   />
                   <p className="font-bitter font-semibold text-sm mt-2 line-clamp-2 text-center">
                     {item.item.title}
@@ -111,7 +125,7 @@ const MyBooks = () => {
             </div>
 
             {/* Dot navigation */}
-            <div className="flex justify-center gap-2 mt-3">
+            <div className="flex justify-center gap-2">
               {currentlyReading.map((_, index) => (
                 <button
                   key={index}
@@ -126,7 +140,7 @@ const MyBooks = () => {
         ) : (
           <p className="text-sm opacity-70 italic">No books yet…</p>
         )}
-      </div>
+      </section>
 
       <Modal
         show={show}
@@ -141,38 +155,38 @@ const MyBooks = () => {
       {/* Bottom Grid */}
       <div className="grid grid-cols-2 gap-4">
         {/* Want to Read */}
-        <div className="bg-(--bg-top border rounded p-4 flex flex-col items-center">
+        <section className="bg-(--bg-top) border border-(--border-base) rounded p-4 flex flex-col items-center">
           <h3 className="font-semibold">Want to Read</h3>
           {latestWantToRead ? (
-            <>
+            <div className="flex items-center gap-8">
               <img
                 src={latestWantToRead.item.imageLinks?.smallThumbnail}
                 alt=""
-                className="w-20 h-28 mt-2 rounded shadow"
+                className="w-20 h-28 rounded border border-(--border-muted) shadow"
               />
-              <p className="text-sm mt-2">{wantToRead.length} books</p>
-            </>
+              <p className="text-sm">{wantToRead.length} books</p>
+            </div>
           ) : (
             <p className="text-sm opacity-70 italic">None</p>
           )}
-        </div>
+        </section>
 
         {/* Read */}
-        <div className="bg-(--bg-top border rounded p-4 flex flex-col items-center">
+        <section className="bg-(--bg-top) border border-(--border-base) rounded p-4 flex flex-col items-center">
           <h3 className="font-semibold">Read</h3>
           {latestRead ? (
-            <>
+            <div className="flex items-center gap-8">
               <img
                 src={latestRead.item.imageLinks?.smallThumbnail}
                 alt=""
-                className="w-20 h-28 mt-2 rounded shadow"
+                className="w-20 h-28 rounded border border-(--border-muted) shadow"
               />
-              <p className="text-sm mt-2">{read.length} books</p>
-            </>
+              <p className="text-sm">{read.length} books</p>
+            </div>
           ) : (
             <p className="text-sm opacity-70 italic">None</p>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );
