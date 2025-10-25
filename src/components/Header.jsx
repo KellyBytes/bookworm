@@ -28,7 +28,7 @@ const Header = ({
   };
 
   return (
-    <header className="w-full max-w-5xl flex justify-between items-stretch gap-x-4">
+    <header className="w-full lg:max-w-4xl xl:max-w-5xl flex justify-between items-stretch gap-x-4">
       <div className="flex flex-col py-4 relative">
         <h1 className="font-bio text-large text-gradient">Bookworm</h1>
       </div>

@@ -11,6 +11,7 @@ const App = () => {
   const [showRead, setShowRead] = useState(false);
 
   const searchBook = (query) => {
+    setShowBrowse(true);
     let formatted = query.trim().replace(/\s+/g, '+');
     const api_key = import.meta.env.VITE_GBOOKS_API_KEY;
     let url = `https://www.googleapis.com/books/v1/volumes?q=${formatted}&key=${api_key}&maxResults=10`;
