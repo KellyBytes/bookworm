@@ -88,7 +88,7 @@ const Modal = ({ show, bookItem, onClose }) => {
             <img
               src={thumbnail}
               alt="thumbnail"
-              className="w-36 h-52 object-cover"
+              className="w-40 h-56 object-cover rounded"
             />
             <div className="info">
               <h1 className="font-bitter tracking-wide">{item.title}</h1>
@@ -111,7 +111,7 @@ const Modal = ({ show, bookItem, onClose }) => {
               <div className="buttons flex justify-center mt-4 gap-x-4 relative">
                 <a href={item.previewLink} target="_blank" rel="noreferrer">
                   <button
-                    className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-blue-600 text-blue-50 text-sm font-semibold hover:scale-98 hover:opacity-90 active:translate-y-0.5 duration-200"
+                    className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-blue-600 text-blue-50 text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
                     onClick={onClose}
                   >
                     More
@@ -120,7 +120,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
                 <div className="relative" ref={menuRef}>
                   <button
-                    className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-blue-200 text-(--text-base) text-sm font-semibold hover:scale-98 hover:opacity-90 active:translate-y-0.5 duration-200"
+                    className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-blue-200 text-(--text-base) text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
                     onClick={() => setShowMenu((prev) => !prev)}
                   >
                     Add to My Books

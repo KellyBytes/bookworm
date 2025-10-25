@@ -14,16 +14,19 @@ res.data
  ├─ selfLink: "https://www.googleapis.com/books/v1/volumes/0KQbEAAAQBAJ"
  └─ volumeInfo
      ├─ authors: (2) ['Majid M. Heravi', 'Vahideh Zadsirjan']
+     ├─ averageRating: 4.5
      ├─ canonicalVolumeLink: "https://play.google.com/store/books/..."
      ├─ categories: ["Science"]
      ├─ description: "Recent Applications of Selected Name Reactions..."
      ├─ imageLinks:
      │   ├─ smallThumbnail: 'http://books.google.com/books/content?id=0KQbEAAAQ．．．', 
      │   └─ thumbnail: 'http://books.google.com/books/content?id=0KQbEAAAQ...'
+     ├─ pageCount: 50
      ├─ previewLink: "http://books.google.ca/books?id=0KQbEAAAQBAJ..."
      ├─ printType: "BOOK"
      ├─ publishedDate: "2021-06-12"
      ├─ publisher: "Elsevier"
+     ├─ subtitle: "by Andy Weir - ..."
      └─ title: "Recent Applications of Selected Name Reactions in the Total Synthesis of Alkaloids"
 
 ---

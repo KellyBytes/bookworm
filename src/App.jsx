@@ -7,6 +7,8 @@ import Footer from './components/Footer';
 const App = () => {
   const [showBrowse, setShowBrowse] = useState(true);
   const [bookData, setBookData] = useState([]);
+  const [showWantToRead, setShowWantToRead] = useState(false);
+  const [showRead, setShowRead] = useState(false);
 
   const searchBook = (query) => {
     let formatted = query.trim().replace(/\s+/g, '+');
@@ -29,11 +31,17 @@ const App = () => {
         setShowBrowse={setShowBrowse}
         setBookData={setBookData}
         searchBook={searchBook}
+        setShowWantToRead={setShowWantToRead}
+        setShowRead={setShowRead}
       />
       <Main
         bookData={bookData}
         searchBook={searchBook}
         showBrowse={showBrowse}
+        showWantToRead={showWantToRead}
+        setShowWantToRead={setShowWantToRead}
+        showRead={showRead}
+        setShowRead={setShowRead}
       />
       <Footer />
     </>

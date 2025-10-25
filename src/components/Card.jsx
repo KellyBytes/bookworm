@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import noImg from '../assets/images/no-img.png';
 
-const Card = ({ bookData }) => {
+const Card = ({ bookData, showWantToRead, setShowBottomGrid }) => {
   const [show, setShow] = useState(false);
   const [bookItem, setBookItem] = useState(null);
 
@@ -14,46 +14,59 @@ const Card = ({ bookData }) => {
   return (
     <>
       {bookData && bookData.length > 0 ? (
-        <div className="card-container max-w-4xl grid grid-cols-4 gap-4 mt-8">
-          {bookData.map((book) => {
-            let thumbnail = book.volumeInfo.imageLinks?.smallThumbnail || noImg;
-            let amount = book.saleInfo.listPrice?.amount;
+        <>
+          <div className="flex justify-between gap-x-4 mt-8">
+            <h2 className="font-bold mb-2">
+              {showWantToRead ? 'Want to Read' : 'Read'}
+            </h2>
+            <button
+              className="text-(--text-muted)"
+              onClick={() => setShowBottomGrid(false)}
+            >
+              <i className="bx bx-chevrons-up text-(--text-muted) text-xl translate-y-1" />{' '}
+              Back to My Books
+            </button>
+          </div>
+          <div className="card-container grid grid-cols-4 gap-4">
+            {bookData.map((book) => {
+              let thumbnail = book.item.imageLinks?.thumbnail;
+              let rating = book.item.averageRating;
+              let printType = book.item.printType;
 
-            if (!thumbnail || !amount) return null;
+              if (!thumbnail) thumbnail = noImg;
 
-            return (
-              <div
-                className="card bg-(--bg-top) border border-(--border-muted) rounded-(--border-radius-small) p-3 mb-2 shadow-lg hover:scale-98 hover:opacity-90 duration-200 relative"
-                key={book.id}
-                onClick={() => handleClick(book)}
-              >
-                <img
-                  src={thumbnail}
-                  alt="thumbnail"
-                  className="w-full h-54 object-cover rounded-tl-(--border-radius-small) rounded-tr-(--border-radius-small) rounded-br-none rounded-bl-none"
-                />
-                <div className="bottom flex flex-col">
-                  <h4 className="title font-bitter font-medium tracking-wide text-center text-sm mt-2 mb-8">
-                    {book.volumeInfo.title}
-                  </h4>
-                  <p className="amount absolute bottom-3 left-3 right-3 bg-(--secondary) text-stone-200 text-center text-xs font-bold p-1">
-                    {`$${amount}`}
-                  </p>
+              return (
+                <div
+                  className="card bg-(--bg-top) border border-(--border-muted) rounded p-3 mb-2 shadow-lg hover:scale-95 hover:opacity-80 duration-200 relative"
+                  key={book.id}
+                  onClick={() => handleClick(book)}
+                >
+                  <img
+                    src={thumbnail}
+                    alt="thumbnail"
+                    className="w-full h-42 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
+                  />
+                  <div className="bottom flex flex-col">
+                    <h4 className="title font-bitter font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
+                      {book.item.title}
+                    </h4>
+                    <p className="rating absolute bottom-3 left-3 right-3 bg-(--primary)/80 text-stone-200 text-center text-xs font-bold p-1">
+                      {`${printType}${rating ? ' ⭐' + rating : ''}`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
 
-          <Modal
-            show={show}
-            bookItem={bookItem}
-            onClose={() => setShow(false)}
-          />
-        </div>
+            <Modal
+              show={show}
+              bookItem={bookItem}
+              onClose={() => setShow(false)}
+            />
+          </div>
+        </>
       ) : (
-        <p className="italic text-gradient">
-          A room without books is like a body without a soul.
-        </p>
+        <p className="text-sm opacity-70 italic">No books yet…</p>
       )}
     </>
   );

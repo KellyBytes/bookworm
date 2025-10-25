@@ -1,11 +1,20 @@
 import { useState } from 'react';
 
-const Header = ({ showBrowse, setShowBrowse, setBookData, searchBook }) => {
+const Header = ({
+  showBrowse,
+  setShowBrowse,
+  setBookData,
+  searchBook,
+  setShowWantToRead,
+  setShowRead,
+}) => {
   const [inputVal, setInputVal] = useState('');
   const [search, setSearch] = useState('');
 
   const handleClickMyBooks = () => {
     setShowBrowse(false);
+    setShowWantToRead(false);
+    setShowRead(false);
   };
 
   const handleClickBrowse = () => {

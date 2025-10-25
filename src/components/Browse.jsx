@@ -46,17 +46,17 @@ const Browse = ({ bookData, searchBook }) => {
 
             return (
               <div
-                className="card bg-(--bg-top) border border-(--border-muted) rounded p-3 mb-2 shadow-lg hover:scale-98 hover:opacity-80 duration-200 relative"
+                className="card bg-(--bg-top) border border-(--border-muted) rounded p-3 mb-2 shadow-lg hover:scale-95 hover:opacity-80 duration-200 relative"
                 key={book.id}
                 onClick={() => handleClick(book)}
               >
                 <img
                   src={thumbnail}
                   alt="thumbnail"
-                  className="w-full h-54 object-cover rounded-tl rounded-tr rounded-br-none rounded-bl-none"
+                  className="w-full h-54 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
                 />
                 <div className="bottom flex flex-col">
-                  <h4 className="title font-bitter font-medium tracking-wide text-center text-sm mt-2 mb-8">
+                  <h4 className="title font-bitter font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
                     {book.volumeInfo.title}
                   </h4>
                   <p className="amount absolute bottom-3 left-3 right-3 bg-(--primary)/80 text-stone-200 text-center text-xs font-bold p-1">
@@ -75,7 +75,7 @@ const Browse = ({ bookData, searchBook }) => {
         </div>
       ) : (
         <>
-          <h2 className="italic text-center text-gradient">
+          <h2 className="mt-32 italic text-center text-gradient">
             A room without books is like
             <br /> a body without a soul.
           </h2>
@@ -84,7 +84,7 @@ const Browse = ({ bookData, searchBook }) => {
               <button
                 key={category}
                 onClick={() => searchBook(`subject:${category}`)}
-                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) hover:scale-98 hover:opacity-80 transition-opacity transition-scale duration-200 active:translate-y-2"
+                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) hover:scale-95 hover:opacity-80 transition-opacity transition-scale duration-200 active:translate-y-2"
               >
                 {category}
               </button>
