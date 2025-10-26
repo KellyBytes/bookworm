@@ -11,7 +11,7 @@ const Main = ({
   setShowRead,
 }) => {
   return (
-    <main className="w-full flex justify-start items-center">
+    <main className="w-full flex justify-start items-center px-8 mt-0 lg:mt-20">
       {/* <Card bookData={bookData} /> */}
       {showBrowse ? (
         <Browse bookData={bookData} searchBook={searchBook} />

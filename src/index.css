@@ -43,7 +43,7 @@
 :root {
   --bg-bottom: hsl(20 5.9% 88%); /* stone-200 (hsl(20 5.9% 90%)) */
   --bg-base: #fafaf9; /* stone-50 */
-  --bg-top: #f5f5f4; /* stone-100 */
+  --bg-top: hsl(60 4.8% 93%); /* stone-100 (hsl(60 4.8% 95.9%)) */
 
   --color-top: #292524; /* stone-800 */
   --color-base: #44403c; /* stone-700 */
@@ -99,6 +99,17 @@
   align-items: center;
   background-color: var(--bg-base);
   color: var(--color-base);
+}
+
+html,
+body {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 main {
@@ -267,4 +278,26 @@ input[type="color"] {
 
 .animate-fade-in {
   animation: fade-in 500ms ease-in-out forwards;
+}
+
+@media (max-width: 640px) {
+  .text-large {
+    font-size: calc(2rem * 0.8);
+  }
+
+  h1 {
+    font-size: calc(1.875rem * 0.75);
+    line-height: calc(2.25rem * 0.75);
+  }
+
+  h2 {
+    font-size: calc(1.25rem * 0.75);
+    line-height: calc(1.75rem * 0.75);
+  }
+
+  h3,
+  .text-medium {
+    font-size: calc(1.125rem * 0.75);
+    line-height: calc(1.75rem * 0.75);
+  }
 }

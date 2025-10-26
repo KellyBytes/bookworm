@@ -97,7 +97,7 @@ const MyBooks = ({
   return (
     <>
       {!showWantToRead && !showRead ? (
-        <div className="my-books-container w-full max-w-4xl mx-auto my-8">
+        <div className="my-books-container w-full max-w-[clamp(19rem,1.353rem+94.118vw,39rem)] sm:max-w-3xl lg:max-w-4xl mx-auto my-8">
           <section className="currently-reading-section mb-12">
             <h2 className="font-bold text-(--color-top) mb-2">
               Currently Reading
@@ -183,7 +183,7 @@ const MyBooks = ({
                   <p className="text-sm">{wantToRead.length} books</p>
                 </div>
               ) : (
-                <p className="mt-10 text-sm opacity-70 italic">None</p>
+                <p className="mt-8 text-sm opacity-70 italic">None</p>
               )}
             </div>
 
@@ -202,7 +202,7 @@ const MyBooks = ({
                   <p className="text-sm">{read.length} books</p>
                 </div>
               ) : (
-                <p className="mt-10 text-sm opacity-70 italic">None</p>
+                <p className="mt-8 text-sm opacity-70 italic">None</p>
               )}
             </div>
           </div>

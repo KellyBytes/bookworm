@@ -34,7 +34,7 @@ const Browse = ({ bookData, searchBook }) => {
   return (
     <>
       {bookData && bookData.length > 0 ? (
-        <div className="card-container max-w-4xl grid grid-cols-4 gap-4 mt-8">
+        <div className="card-container max-w-4xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
           {bookData.map((book) => {
             let thumbnail = book.volumeInfo.imageLinks?.thumbnail;
             let amount = book.saleInfo.listPrice?.amount
@@ -46,7 +46,7 @@ const Browse = ({ bookData, searchBook }) => {
 
             return (
               <div
-                className="card bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
+                className="card w-52 bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
                 key={book.id}
                 onClick={() => handleClick(book)}
               >
@@ -75,11 +75,11 @@ const Browse = ({ bookData, searchBook }) => {
         </div>
       ) : (
         <>
-          <h2 className="mt-32 italic text-center text-gradient">
+          <h2 className="hidden md:block mt-32 italic text-center text-gradient">
             A room without books is like
             <br /> a body without a soul.
           </h2>
-          <div className="w-1/2 flex justify-center flex-wrap gap-3 mt-4">
+          <div className="w-1/2 flex justify-center flex-wrap gap-3 mt-8 mb-8 md:mt-4">
             {categories.map((category) => (
               <button
                 key={category}

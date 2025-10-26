@@ -81,7 +81,7 @@ const Modal = ({ show, bookItem, onClose }) => {
         onClick={onClose}
       >
         <div
-          className="overlay-inner bg-(--bg-top) w-xl h-11/12 p-10 rounded-xl text-xl relative"
+          className="overlay-inner bg-(--bg-top) w-11/12 sm:w-xl h-4/5 lg:h-11/12 p-6 pr-8 lg:p-10 rounded-xl text-xl relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -92,7 +92,7 @@ const Modal = ({ show, bookItem, onClose }) => {
           </button>
 
           <div className="inner-scroll h-full overflow-y-auto no-scrollbar">
-            <div className="inner-container w-lg flex justify-center gap-x-6">
+            <div className="inner-container flex justify-center gap-x-6">
               <img
                 src={thumbnail}
                 alt="thumbnail"
@@ -118,10 +118,10 @@ const Modal = ({ show, bookItem, onClose }) => {
                     {renderStars(item.averageRating)}
                   </div>
                 )}
-                <div className="buttons flex justify-center mt-4 gap-x-4 relative">
+                <div className="buttons flex justify-center mt-4 gap-x-2 sm:gap-x-4 relative">
                   <a href={item.previewLink} target="_blank" rel="noreferrer">
                     <button
-                      className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-(--accent) text-blue-50 text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
+                      className="w-18 sm:w-24 rounded-sm mt-4 py-1.5 px-2 bg-(--accent) text-neutral-50 text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={onClose}
                     >
                       More
@@ -130,14 +130,14 @@ const Modal = ({ show, bookItem, onClose }) => {
 
                   <div className="relative" ref={menuRef}>
                     <button
-                      className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--accent-muted) text-(--color-base) text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
+                      className="w-36 sm:w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--accent-muted) text-(--color-base) text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={() => setShowMenu((prev) => !prev)}
                     >
                       Add to My Books
                     </button>
 
                     {showMenu && (
-                      <div className="absolute top-full left-0 mt-2 w-full bg-white border border-stone-300 rounded-md shadow-md z-50">
+                      <div className="absolute top-full left-0 mt-2 w-full bg-(--bg-base) border border-(--border-base) rounded-md shadow-md z-50">
                         {[
                           'Want to Read',
                           'Currently Reading',
@@ -146,7 +146,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                         ].map((option) => (
                           <button
                             key={option}
-                            className="block w-full text-left px-4 py-2 hover:bg-stone-100 text-sm"
+                            className="block w-full text-left px-2 sm:px-4 py-2 hover:bg-(--bg-top) text-sm"
                             onClick={() => {
                               if (
                                 option === 'Currently Reading' ||

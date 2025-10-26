@@ -18,7 +18,7 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
           <h2 className="font-bold text-(--color-top) mt-8 mb-2">
             {showWantToRead ? 'Want to Read' : 'Read'}
           </h2>
-          <div className="card-container grid grid-cols-4 gap-4">
+          <div className="card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {bookData.map((book) => {
               let thumbnail = book.item.imageLinks?.thumbnail;
               let rating = book.item.averageRating;
@@ -28,7 +28,7 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
 
               return (
                 <div
-                  className="card bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
+                  className="card w-52 bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
                   key={book.id}
                   onClick={() => handleClick(book)}
                 >
@@ -64,13 +64,6 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
       ) : (
         <>
           <p className="text-sm opacity-70 italic">No books yet…</p>
-          <button
-            className="text-(--color-muted)"
-            onClick={() => setShowBottomGrid(false)}
-          >
-            <i className="bx bx-chevrons-up text-(--color-muted) text-xl translate-y-1" />{' '}
-            Back to My Books
-          </button>
         </>
       )}
       <button
