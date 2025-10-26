@@ -36,7 +36,7 @@ const Browse = ({ bookData, searchBook }) => {
       {bookData && bookData.length > 0 ? (
         <div className="card-container max-w-4xl grid grid-cols-4 gap-4 mt-8">
           {bookData.map((book) => {
-            let thumbnail = book.volumeInfo.imageLinks?.smallThumbnail;
+            let thumbnail = book.volumeInfo.imageLinks?.thumbnail;
             let amount = book.saleInfo.listPrice?.amount
               ? '$' + book.saleInfo.listPrice?.amount
               : 'Price u/a';

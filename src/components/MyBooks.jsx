@@ -97,7 +97,7 @@ const MyBooks = ({
   return (
     <>
       {!showWantToRead && !showRead ? (
-        <div className="my-books-container w-full max-w-3xl mx-auto my-8">
+        <div className="my-books-container w-full max-w-4xl mx-auto my-8">
           <section className="currently-reading-section mb-12">
             <h2 className="font-bold mb-2">Currently Reading</h2>
             {currentlyReading.length > 0 ? (
@@ -121,7 +121,7 @@ const MyBooks = ({
                     >
                       {/* book.item = volumeInfo */}
                       <img
-                        src={book.item.imageLinks?.smallThumbnail}
+                        src={book.item.imageLinks?.thumbnail}
                         alt={book.item.title}
                         className="w-full h-40 object-cover rounded border border-(--border-muted)"
                       />
@@ -204,19 +204,21 @@ const MyBooks = ({
           </div>
         </div>
       ) : showWantToRead ? (
-        <section className="want-to-read-section max-w-3xl mb-12">
+        <section className="want-to-read-section max-w-4xl mb-12">
           <Card
             bookData={wantToRead}
             showWantToRead={showWantToRead}
             setShowBottomGrid={setShowWantToRead}
+            setMyBooks={setMyBooks}
           />
         </section>
       ) : (
-        <section className="read-section max-w-3xl mb-12">
+        <section className="read-section max-w-4xl mb-12">
           <Card
             bookData={read}
             showBottomGrid={showRead}
             setShowBottomGrid={setShowRead}
+            setMyBooks={setMyBooks}
           />
         </section>
       )}

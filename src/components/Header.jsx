@@ -36,7 +36,7 @@ const Header = ({
         <button
           className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--text-highlight) transition-colors duration-300 ${
             !showBrowse
-              ? 'text-(--secondary) font-semibold underline underline-offset-3 decoration-2'
+              ? 'text-(--secondary) font-semibold underline underline-offset-4 decoration-2'
               : ''
           }`}
           onClick={handleClickMyBooks}
@@ -46,7 +46,7 @@ const Header = ({
         <button
           className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--text-highlight) transition-colors duration-300 ${
             showBrowse
-              ? 'text-(--secondary) font-semibold underline underline-offset-3 decoration-2'
+              ? 'text-(--secondary) font-semibold underline underline-offset-4 decoration-2'
               : ''
           }`}
           onClick={handleClickBrowse}

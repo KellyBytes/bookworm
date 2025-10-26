@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 const Modal = ({ show, bookItem, onClose }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [message, setMessage] = useState('');
+  const [dateModalStatus, setDateModalStatus] = useState(null); // 'Read' or 'Currently Reading'
+  const today = new Date().toLocaleDateString('en-CA');
+  const [selectedDate, setSelectedDate] = useState(today);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -24,25 +27,28 @@ const Modal = ({ show, bookItem, onClose }) => {
   if (!show || !bookItem) return null;
 
   let item = bookItem.volumeInfo || bookItem.item;
-  let thumbnail = item.imageLinks?.smallThumbnail;
+  let thumbnail = item.imageLinks?.thumbnail;
 
-  const handleOptionClick = (status) => {
+  const handleOptionClick = (status, customDate) => {
     const storedBooks = JSON.parse(localStorage.getItem('myBooks') || '[]');
+    const date = customDate || today;
 
     if (status === 'Remove') {
       const updated = storedBooks.filter((b) => b.id !== bookItem.id);
       localStorage.setItem('myBooks', JSON.stringify(updated));
       setMessage('Book Removed!');
     } else {
-      const newBook = { id: bookItem.id, status, item };
-      const existing = storedBooks.find((b) => b.id === bookItem.id);
+      const newBook = {
+        id: bookItem.id,
+        status,
+        date: status === 'Want to Read' ? '' : date,
+        item,
+      };
 
-      let updated;
-      if (existing) {
-        updated = storedBooks.map((b) => (b.id === bookItem.id ? newBook : b));
-      } else {
-        updated = [newBook, ...storedBooks];
-      }
+      const updated = storedBooks
+        .filter((b) => b.id !== bookItem.id)
+        .concat(newBook);
+
       localStorage.setItem('myBooks', JSON.stringify(updated));
       setMessage('Status Changed!');
     }
@@ -75,7 +81,7 @@ const Modal = ({ show, bookItem, onClose }) => {
         onClick={onClose}
       >
         <div
-          className="overlay-inner bg-stone-200 w-xl h-11/12 p-6 rounded-xl text-xl overflow-y-auto no-scrollbar relative"
+          className="overlay-inner bg-(--bg-bottom) w-xl h-11/12 p-10 rounded-xl text-xl relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -84,79 +90,125 @@ const Modal = ({ show, bookItem, onClose }) => {
           >
             <i className="fas fa-times"></i>
           </button>
-          <div className="inner-container w-lg flex justify-center mt-8 gap-x-6">
-            <img
-              src={thumbnail}
-              alt="thumbnail"
-              className="w-40 h-56 object-cover rounded"
-            />
-            <div className="info">
-              <h1 className="font-bitter tracking-wide">{item.title}</h1>
-              <h3 className="mt-3 font-serrat font-semibold text-(--text-muted)">
-                {item.authors.map((author, index) => (
-                  <span key={`author-${index}`}>
-                    {author}
-                    {index < item.authors.length - 1 && ', '}
-                  </span>
-                ))}
-              </h3>
-              <h4 className="font-serrat text-sm text-stone-700">
-                {`${item.publisher}; ${item.publishedDate}; p. ${item.pageCount}`}
-              </h4>
-              {item.averageRating && (
-                <div className="flex items-center gap-2 mt-2 text-yellow-500 text-lg">
-                  {renderStars(item.averageRating)}
-                </div>
-              )}
-              <div className="buttons flex justify-center mt-4 gap-x-4 relative">
-                <a href={item.previewLink} target="_blank" rel="noreferrer">
-                  <button
-                    className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-blue-600 text-blue-50 text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
-                    onClick={onClose}
-                  >
-                    More
-                  </button>
-                </a>
 
-                <div className="relative" ref={menuRef}>
-                  <button
-                    className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-blue-200 text-(--text-base) text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
-                    onClick={() => setShowMenu((prev) => !prev)}
-                  >
-                    Add to My Books
-                  </button>
+          <div className="inner-scroll h-full overflow-y-auto no-scrollbar">
+            <div className="inner-container w-lg flex justify-center gap-x-6">
+              <img
+                src={thumbnail}
+                alt="thumbnail"
+                className="w-40 h-56 object-cover rounded"
+              />
+              <div className="info">
+                <h1 className="font-bitter tracking-wide">{item.title}</h1>
+                <h3 className="mt-3 font-serrat font-semibold text-(--text-muted)">
+                  {item.authors.map((author, index) => (
+                    <span key={`author-${index}`}>
+                      {author}
+                      {index < item.authors.length - 1 && ', '}
+                    </span>
+                  ))}
+                </h3>
+                <h4 className="font-serrat text-sm text-stone-700">
+                  {`${item.publisher}; ${item.publishedDate}; p. ${item.pageCount}`}
+                </h4>
+                {item.averageRating && (
+                  <div className="flex items-center gap-2 mt-2 text-yellow-500 text-lg">
+                    {renderStars(item.averageRating)}
+                  </div>
+                )}
+                <div className="buttons flex justify-center mt-4 gap-x-4 relative">
+                  <a href={item.previewLink} target="_blank" rel="noreferrer">
+                    <button
+                      className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-(--primary) text-blue-50 text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
+                      onClick={onClose}
+                    >
+                      More
+                    </button>
+                  </a>
 
-                  {showMenu && (
-                    <div className="absolute top-full left-0 mt-2 w-full bg-white border border-stone-300 rounded-md shadow-md z-50">
-                      {[
-                        'Want to Read',
-                        'Currently Reading',
-                        'Read',
-                        'Remove',
-                      ].map((option) => (
-                        <button
-                          key={option}
-                          className="block w-full text-left px-4 py-2 hover:bg-stone-100 text-sm"
-                          onClick={() => handleOptionClick(option)}
-                        >
-                          {option}
-                        </button>
-                      ))}
+                  <div className="relative" ref={menuRef}>
+                    <button
+                      className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--secondary)/50 text-(--text-base) text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
+                      onClick={() => setShowMenu((prev) => !prev)}
+                    >
+                      Add to My Books
+                    </button>
+
+                    {showMenu && (
+                      <div className="absolute top-full left-0 mt-2 w-full bg-white border border-stone-300 rounded-md shadow-md z-50">
+                        {[
+                          'Want to Read',
+                          'Currently Reading',
+                          'Read',
+                          'Remove',
+                        ].map((option) => (
+                          <button
+                            key={option}
+                            className="block w-full text-left px-4 py-2 hover:bg-stone-100 text-sm"
+                            onClick={() => {
+                              if (
+                                option === 'Currently Reading' ||
+                                option === 'Read'
+                              ) {
+                                setDateModalStatus(option);
+                              } else {
+                                handleOptionClick(option);
+                              }
+                            }}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {message && (
+                    <p className="text-center mt-3 text-sm font-semibold text-green-700 animate-fade-in absolute -bottom-6 right-12 z-50">
+                      {message}
+                    </p>
+                  )}
+
+                  {dateModalStatus && (
+                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+                      <div className="bg-(--bg-top) p-4 rounded-md shadow-lg">
+                        <p className="mb-2 font-semibold">Select Date</p>
+                        <input
+                          type="date"
+                          value={selectedDate}
+                          className="border px-2-py-1"
+                          onChange={(e) => setSelectedDate(e.target.value)}
+                        />
+
+                        <div className="flex gap-2 mt-3">
+                          <button
+                            className="bg-(--primary)/90 text-(--text-highlight) px-3 py-1 rounded"
+                            onClick={() => {
+                              handleOptionClick(dateModalStatus, selectedDate);
+                              setDateModalStatus(null);
+                            }}
+                          >
+                            Save
+                          </button>
+
+                          <button
+                            className="bg-(--bg-bottom) px-3 py-1 rounded"
+                            onClick={() => setDateModalStatus(null)}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
-                {message && (
-                  <p className="text-center mt-3 text-sm font-semibold text-green-700 animate-fade-in absolute -bottom-6 right-12 z-50">
-                    {message}
-                  </p>
-                )}
               </div>
             </div>
-          </div>
 
-          <p className="description mt-8 text-pretty text-sm">
-            {item.description}
-          </p>
+            <p className="description mt-8 text-pretty text-sm">
+              {item.description}
+            </p>
+          </div>
         </div>
       </div>
     </>

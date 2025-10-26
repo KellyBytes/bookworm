@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import noImg from '../assets/images/no-img.png';
 
-const Card = ({ bookData, showWantToRead, setShowBottomGrid }) => {
+const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
   const [show, setShow] = useState(false);
   const [bookItem, setBookItem] = useState(null);
 
@@ -44,7 +44,7 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid }) => {
                   <img
                     src={thumbnail}
                     alt="thumbnail"
-                    className="w-full h-42 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
+                    className="w-full h-54 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
                   />
                   <div className="bottom flex flex-col">
                     <h4 className="title font-bitter font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
@@ -61,12 +61,26 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid }) => {
             <Modal
               show={show}
               bookItem={bookItem}
-              onClose={() => setShow(false)}
+              onClose={() => {
+                setShow(false);
+                const updated =
+                  JSON.parse(localStorage.getItem('myBooks')) || [];
+                setMyBooks(updated);
+              }}
             />
           </div>
         </>
       ) : (
-        <p className="text-sm opacity-70 italic">No books yet…</p>
+        <>
+          <p className="text-sm opacity-70 italic">No books yet…</p>
+          <button
+            className="text-(--text-muted)"
+            onClick={() => setShowBottomGrid(false)}
+          >
+            <i className="bx bx-chevrons-up text-(--text-muted) text-xl translate-y-1" />{' '}
+            Back to My Books
+          </button>
+        </>
       )}
     </>
   );
