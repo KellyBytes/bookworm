@@ -99,7 +99,9 @@ const MyBooks = ({
       {!showWantToRead && !showRead ? (
         <div className="my-books-container w-full max-w-4xl mx-auto my-8">
           <section className="currently-reading-section mb-12">
-            <h2 className="font-bold mb-2">Currently Reading</h2>
+            <h2 className="font-bold text-(--color-top) mb-2">
+              Currently Reading
+            </h2>
             {currentlyReading.length > 0 ? (
               <>
                 {/* Scroll area */}
@@ -113,7 +115,7 @@ const MyBooks = ({
                       ref={(el) => {
                         if (el) itemRefs.current[index] = el;
                       }}
-                      className="w-40 bg-(--bg-top) rounded shadow p-2 shrink-0 cursor-pointer hover:opacity-80 hover:scale-95 duration-200 scroll-snap-center"
+                      className="w-40 bg-(--bg-base) rounded shadow p-2 shrink-0 cursor-pointer hover:opacity-80 hover:scale-[0.98] duration-200 scroll-snap-center"
                       onClick={() => {
                         setBookItem(book);
                         setShow(true);
@@ -123,7 +125,7 @@ const MyBooks = ({
                       <img
                         src={book.item.imageLinks?.thumbnail}
                         alt={book.item.title}
-                        className="w-full h-40 object-cover rounded border border-(--border-muted)"
+                        className="w-full h-40 object-cover rounded border border-(--border-base)"
                       />
                       <p className="font-bitter font-semibold text-sm mt-2 line-clamp-2 text-center">
                         {book.item.title}
@@ -165,16 +167,18 @@ const MyBooks = ({
           {/* Bottom Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div
-              className="want-to-read-section bg-(--bg-top) border border-(--border-base) rounded p-4 flex flex-col items-center cursor-pointer"
+              className="want-to-read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
               onClick={() => setShowWantToRead(true)}
             >
-              <h3 className="font-semibold mb-2">Want to Read</h3>
+              <h3 className="font-semibold text-(--color-top) mb-4">
+                Want to Read
+              </h3>
               {latestWantToRead ? (
                 <div className="flex items-center gap-8">
                   <img
                     src={latestWantToRead.item.imageLinks?.smallThumbnail}
                     alt=""
-                    className="w-20 h-28 rounded border border-(--border-muted) shadow"
+                    className="w-20 h-28 rounded border border-(--border-base) shadow"
                   />
                   <p className="text-sm">{wantToRead.length} books</p>
                 </div>
@@ -184,16 +188,16 @@ const MyBooks = ({
             </div>
 
             <div
-              className="read-section bg-(--bg-top) border border-(--border-base) rounded p-4 flex flex-col items-center cursor-pointer"
+              className="read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
               onClick={() => setShowRead(true)}
             >
-              <h3 className="font-semibold mb-2">Read</h3>
+              <h3 className="font-semibold text-(--color-top) mb-4">Read</h3>
               {latestRead ? (
                 <div className="flex items-center gap-8">
                   <img
                     src={latestRead.item.imageLinks?.smallThumbnail}
                     alt=""
-                    className="w-20 h-28 rounded border border-(--border-muted) shadow"
+                    className="w-20 h-28 rounded border border-(--border-base) shadow"
                   />
                   <p className="text-sm">{read.length} books</p>
                 </div>

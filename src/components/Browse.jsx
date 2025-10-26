@@ -46,7 +46,7 @@ const Browse = ({ bookData, searchBook }) => {
 
             return (
               <div
-                className="card bg-(--bg-top) border border-(--border-muted) rounded p-3 mb-2 shadow-lg hover:scale-95 hover:opacity-80 duration-200 relative"
+                className="card bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
                 key={book.id}
                 onClick={() => handleClick(book)}
               >
@@ -59,7 +59,7 @@ const Browse = ({ bookData, searchBook }) => {
                   <h4 className="title font-bitter font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
                     {book.volumeInfo.title}
                   </h4>
-                  <p className="amount absolute bottom-3 left-3 right-3 bg-(--primary)/80 text-stone-200 text-center text-xs font-bold p-1">
+                  <p className="amount absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-stone-200 text-center text-xs font-bold p-1">
                     {`${printType} - ${amount}`}
                   </p>
                 </div>
@@ -84,7 +84,7 @@ const Browse = ({ bookData, searchBook }) => {
               <button
                 key={category}
                 onClick={() => searchBook(`subject:${category}`)}
-                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) hover:scale-95 hover:opacity-80 transition-opacity transition-scale duration-200 active:translate-y-2"
+                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) dark:bg-(--bg-top) dark:border dark:border-(--border-base) hover:scale-[0.98] hover:opacity-80 transition-opacity transition-scale duration-200 active:translate-y-2"
               >
                 {category}
               </button>

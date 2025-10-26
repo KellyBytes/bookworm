@@ -1,9 +1,9 @@
 const Footer = () => {
   return (
     <footer className="w-full flex flex-col items-center mt-4 mb-8">
-      <small className="text-(--text-muted)">Created by</small>
+      <small className="text-(--color-muted) mb-1">Created by</small>
       <a
-        className="flex items-center gap-1 p-1 pr-2   bg-(--bg-top) text-(--text-light) rounded-4xl border border-transparent shadow-(--shadow) hover:border-(--border-muted) hover:shadow-[0_0_0_0_var(--border-muted)] hover:translate-x-[2px] translate-y-[2px] transition-transform duration-200"
+        className="flex items-center gap-1 p-1 pr-2 bg-(--bg-top) text-(--color-top) rounded-4xl border border-transparent shadow-md hover:border-(--border-base) hover:shadow-[0_0_0_0_var(--color-muted)] hover:scale-[0.98] hover:opacity-80 transition duration-200"
         alt="pfp"
         href="https://github.com/KellyBytes"
         target="_blank"

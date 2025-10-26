@@ -77,11 +77,11 @@ const Modal = ({ show, bookItem, onClose }) => {
   return (
     <>
       <div
-        className="overlay min-h-100vh w-full fixed inset-0 z-[9999] bg-linear-to-br from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.8)] flex justify-center items-center"
+        className="overlay min-h-100vh w-full fixed inset-0 z-[9999] bg-linear-to-br from-[rgba(0,0,0,0.7)] to-[rgba(0,0,0,0.8)] flex justify-center items-center"
         onClick={onClose}
       >
         <div
-          className="overlay-inner bg-(--bg-bottom) w-xl h-11/12 p-10 rounded-xl text-xl relative"
+          className="overlay-inner bg-(--bg-top) w-xl h-11/12 p-10 rounded-xl text-xl relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -99,8 +99,10 @@ const Modal = ({ show, bookItem, onClose }) => {
                 className="w-40 h-56 object-cover rounded"
               />
               <div className="info">
-                <h1 className="font-bitter tracking-wide">{item.title}</h1>
-                <h3 className="mt-3 font-serrat font-semibold text-(--text-muted)">
+                <h1 className="font-bitter tracking-wide text-(--color-top)">
+                  {item.title}
+                </h1>
+                <h3 className="mt-3 font-serrat font-semibold text-(--color-muted)">
                   {item.authors.map((author, index) => (
                     <span key={`author-${index}`}>
                       {author}
@@ -108,7 +110,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                     </span>
                   ))}
                 </h3>
-                <h4 className="font-serrat text-sm text-stone-700">
+                <h4 className="font-serrat text-sm text-(--color-muted)">
                   {`${item.publisher}; ${item.publishedDate}; p. ${item.pageCount}`}
                 </h4>
                 {item.averageRating && (
@@ -119,7 +121,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                 <div className="buttons flex justify-center mt-4 gap-x-4 relative">
                   <a href={item.previewLink} target="_blank" rel="noreferrer">
                     <button
-                      className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-(--primary) text-blue-50 text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
+                      className="w-24 rounded-sm mt-4 py-1.5 px-2 bg-(--accent) text-blue-50 text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={onClose}
                     >
                       More
@@ -128,7 +130,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
                   <div className="relative" ref={menuRef}>
                     <button
-                      className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--secondary)/50 text-(--text-base) text-sm font-semibold hover:scale-95 hover:opacity-90 active:translate-y-0.5 duration-200"
+                      className="w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--accent-muted) text-(--color-base) text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={() => setShowMenu((prev) => !prev)}
                     >
                       Add to My Books
@@ -171,7 +173,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
                   {dateModalStatus && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
-                      <div className="bg-(--bg-top) p-4 rounded-md shadow-lg">
+                      <div className="bg-(--bg-top) p-4 rounded-md shadow-lg text-center">
                         <p className="mb-2 font-semibold">Select Date</p>
                         <input
                           type="date"
@@ -180,9 +182,9 @@ const Modal = ({ show, bookItem, onClose }) => {
                           onChange={(e) => setSelectedDate(e.target.value)}
                         />
 
-                        <div className="flex gap-2 mt-3">
+                        <div className="flex justify-center gap-2 mt-3">
                           <button
-                            className="bg-(--primary)/90 text-(--text-highlight) px-3 py-1 rounded"
+                            className="bg-(--accent)/90 text-(--color-highlight) px-3 py-1 rounded"
                             onClick={() => {
                               handleOptionClick(dateModalStatus, selectedDate);
                               setDateModalStatus(null);

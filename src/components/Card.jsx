@@ -15,18 +15,9 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
     <>
       {bookData && bookData.length > 0 ? (
         <>
-          <div className="flex justify-between gap-x-4 mt-8">
-            <h2 className="font-bold mb-2">
-              {showWantToRead ? 'Want to Read' : 'Read'}
-            </h2>
-            <button
-              className="text-(--text-muted)"
-              onClick={() => setShowBottomGrid(false)}
-            >
-              <i className="bx bx-chevrons-up text-(--text-muted) text-xl translate-y-1" />{' '}
-              Back to My Books
-            </button>
-          </div>
+          <h2 className="font-bold text-(--color-top) mt-8 mb-2">
+            {showWantToRead ? 'Want to Read' : 'Read'}
+          </h2>
           <div className="card-container grid grid-cols-4 gap-4">
             {bookData.map((book) => {
               let thumbnail = book.item.imageLinks?.thumbnail;
@@ -37,7 +28,7 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
 
               return (
                 <div
-                  className="card bg-(--bg-top) border border-(--border-muted) rounded p-3 mb-2 shadow-lg hover:scale-95 hover:opacity-80 duration-200 relative"
+                  className="card bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
                   key={book.id}
                   onClick={() => handleClick(book)}
                 >
@@ -50,8 +41,8 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
                     <h4 className="title font-bitter font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
                       {book.item.title}
                     </h4>
-                    <p className="rating absolute bottom-3 left-3 right-3 bg-(--primary)/80 text-stone-200 text-center text-xs font-bold p-1">
-                      {`${printType}${rating ? ' ⭐' + rating : ''}`}
+                    <p className="rating absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-stone-200 text-center text-xs font-bold p-1">
+                      {`${printType}${rating ? '  ⭐' + rating : ''}`}
                     </p>
                   </div>
                 </div>
@@ -74,14 +65,21 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
         <>
           <p className="text-sm opacity-70 italic">No books yet…</p>
           <button
-            className="text-(--text-muted)"
+            className="text-(--color-muted)"
             onClick={() => setShowBottomGrid(false)}
           >
-            <i className="bx bx-chevrons-up text-(--text-muted) text-xl translate-y-1" />{' '}
+            <i className="bx bx-chevrons-up text-(--color-muted) text-xl translate-y-1" />{' '}
             Back to My Books
           </button>
         </>
       )}
+      <button
+        className="text-(--color-muted) text-right"
+        onClick={() => setShowBottomGrid(false)}
+      >
+        <i className="bx bx-chevrons-up text-(--color-muted) text-xl" />
+        Back to My Books
+      </button>
     </>
   );
 };

@@ -34,20 +34,20 @@ const Header = ({
       </div>
       <nav className="flex">
         <button
-          className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--text-highlight) transition-colors duration-300 ${
+          className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--color-highlight) transition duration-300 ${
             !showBrowse
               ? 'text-(--secondary) font-semibold underline underline-offset-4 decoration-2'
-              : ''
+              : 'text-(--text-top)'
           }`}
           onClick={handleClickMyBooks}
         >
           My Books
         </button>
         <button
-          className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--text-highlight) transition-colors duration-300 ${
+          className={`browse px-6 hover:bg-(--secondary)/70 hover:text-(--color-highlight) transition duration-300 ${
             showBrowse
               ? 'text-(--secondary) font-semibold underline underline-offset-4 decoration-2'
-              : ''
+              : 'text-(--text-top)'
           }`}
           onClick={handleClickBrowse}
         >
@@ -57,7 +57,7 @@ const Header = ({
       <div className="search flex relative">
         <input
           type="text"
-          className="w-sm h-10 self-center placeholder:text-(--text-muted) focus:placeholder:text-transparent"
+          className="w-sm h-10 self-center placeholder:text-(--color-muted) focus:placeholder:text-transparent"
           placeholder="Search books"
           value={inputVal}
           onChange={handleChange}
