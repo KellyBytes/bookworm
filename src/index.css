@@ -282,7 +282,7 @@ input[type="color"] {
 
 @media (max-width: 640px) {
   .text-large {
-    font-size: calc(2rem * 0.8);
+    font-size: calc(2rem * 0.7);
   }
 
   h1 {

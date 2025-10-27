@@ -30,7 +30,7 @@ const Header = ({
   return (
     <header className="w-full flex justify-center">
       <div className="full-width-wrapper w-full fixed top-0 left-0 z-50 flex justify-center bg-(--bg-base) border-b border-(--border-base)/50 shadow-sm lg:border-none lg:shadow-none">
-        <div className="w-full max-w-[clamp(19rem,1.353rem+94.118vw,39rem)] sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl flex justify-between items-stretch gap-x-4 px-8 ">
+        <div className="w-full max-w-[clamp(19rem,1.353rem+94.118vw,39rem)] sm:max-w-3xl lg:max-w-4xl xl:max-w-5xl flex justify-between items-stretch gap-x-2 md:gap-x-4 px-4 md:px-8 ">
           <div className="flex flex-col py-4">
             <h1 className="font-bio text-large text-gradient">Bookworm</h1>
           </div>
@@ -59,7 +59,7 @@ const Header = ({
           <div className="search flex relative">
             <input
               type="text"
-              className="w-[clamp(6.875rem,60vw,31.875rem)] lg:w-sm h-10 self-center placeholder:text-(--color-muted) focus:placeholder:text-transparent"
+              className="w-[clamp(8rem,-7rem+80vw,25rem)] lg:w-sm h-10 self-center placeholder:text-(--color-muted) focus:placeholder:text-transparent"
               placeholder="Search books"
               value={inputVal}
               onChange={handleChange}
@@ -76,7 +76,7 @@ const Header = ({
                 setInputVal('');
               }}
             >
-              <i className="bx bx-search text-2xl text-stone-500 absolute right-2 top-6 cursor-pointer"></i>
+              <i className="bx bx-search text-xl lg:text-2xl text-stone-500 absolute right-1 top-5 md:top-6 lg:right-2 cursor-pointer"></i>
             </button>
           </div>
         </div>

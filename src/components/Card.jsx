@@ -63,11 +63,13 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
         </>
       ) : (
         <>
-          <p className="text-sm opacity-70 italic">No books yet…</p>
+          <p className="text-sm text-center opacity-70 italic my-12 md:my-24">
+            No books yet…
+          </p>
         </>
       )}
       <button
-        className="text-(--color-muted) text-right"
+        className="text-(--color-muted)"
         onClick={() => setShowBottomGrid(false)}
       >
         <i className="bx bx-chevrons-up text-(--color-muted) text-xl" />

@@ -79,7 +79,7 @@ const Browse = ({ bookData, searchBook }) => {
             A room without books is like
             <br /> a body without a soul.
           </h2>
-          <div className="w-1/2 flex justify-center flex-wrap gap-3 mt-8 mb-8 md:mt-4">
+          <div className="w-11/12 md:w-1/2 flex justify-center flex-wrap gap-3 mt-10 mb-8 md:mt-4">
             {categories.map((category) => (
               <button
                 key={category}

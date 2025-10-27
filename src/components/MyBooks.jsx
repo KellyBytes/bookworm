@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Card from './Card';
 import Modal from './Modal';
+import noImg from '../assets/images/no-img.png';
 
 const MyBooks = ({
   showWantToRead,
@@ -29,6 +30,8 @@ const MyBooks = ({
 
   const latestWantToRead = wantToRead.at(-1);
   const latestRead = read.at(-1);
+  const latestThreeWantToRead = wantToRead.slice(0, 3).reverse();
+  const latestThreeRead = read.slice(0, 3).reverse();
 
   // Move to the left by clicking the dot
   const scrollToItem = (index) => {
@@ -165,45 +168,80 @@ const MyBooks = ({
           />
 
           {/* Bottom Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div
               className="want-to-read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
               onClick={() => setShowWantToRead(true)}
             >
-              <h3 className="font-semibold text-(--color-top) mb-4">
+              <h3 className="font-semibold text-(--color-top) pb-8">
                 Want to Read
               </h3>
-              {latestWantToRead ? (
-                <div className="flex items-center gap-8">
-                  <img
-                    src={latestWantToRead.item.imageLinks?.smallThumbnail}
-                    alt=""
-                    className="w-20 h-28 rounded border border-(--border-base) shadow"
-                  />
-                  <p className="text-sm">{wantToRead.length} books</p>
+              <div className="flex items-center gap-8">
+                <div className="relative w-20 h-28">
+                  {wantToRead.length > 0 ? (
+                    latestThreeWantToRead.map((book, index) => (
+                      <img
+                        key={book.id}
+                        src={book.item.imageLinks?.smallThumbnail || noImg}
+                        alt="thumbnail"
+                        className="w-20 h-28 rounded border border-(--border-base) shadow absolute"
+                        style={{
+                          transform: `translate(${index * -5}px, ${
+                            index * -5
+                          }px)`,
+                          zIndex: index * 1,
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <img
+                      src={noImg}
+                      alt="no books"
+                      className="w-20 h-28 rounded border border-(--border-base) shadow absolute"
+                    />
+                  )}
                 </div>
-              ) : (
-                <p className="mt-8 text-sm opacity-70 italic">None</p>
-              )}
+                <p className="text-sm">
+                  {wantToRead.length}{' '}
+                  {wantToRead.length === 1 ? 'book' : 'books'}
+                </p>
+              </div>
             </div>
 
             <div
               className="read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
               onClick={() => setShowRead(true)}
             >
-              <h3 className="font-semibold text-(--color-top) mb-4">Read</h3>
-              {latestRead ? (
-                <div className="flex items-center gap-8">
-                  <img
-                    src={latestRead.item.imageLinks?.smallThumbnail}
-                    alt=""
-                    className="w-20 h-28 rounded border border-(--border-base) shadow"
-                  />
-                  <p className="text-sm">{read.length} books</p>
+              <h3 className="font-semibold text-(--color-top) pb-8">Read</h3>
+              <div className="flex items-center gap-8">
+                <div className="relative w-20 h-28">
+                  {latestThreeRead.length > 0 ? (
+                    latestThreeRead.map((book, index) => (
+                      <img
+                        key={book.id}
+                        src={book.item.imageLinks?.smallThumbnail || noImg}
+                        alt="thumbnail"
+                        className="w-20 h-28 rounded border border-(--border-base) shadow absolute"
+                        style={{
+                          transform: `translate(${index * -5}px, ${
+                            index * -5
+                          }px)`,
+                          zIndex: index * 1,
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <img
+                      src={noImg}
+                      alt="no books"
+                      className="w-20 h-28 rounded border border-(--border-base) shadow absolute"
+                    />
+                  )}
                 </div>
-              ) : (
-                <p className="mt-8 text-sm opacity-70 italic">None</p>
-              )}
+                <p className="text-sm">
+                  {read.length} {read.length === 1 ? 'book' : 'books'}
+                </p>
+              </div>
             </div>
           </div>
         </div>

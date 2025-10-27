@@ -96,7 +96,7 @@ const Modal = ({ show, bookItem, onClose }) => {
               <img
                 src={thumbnail}
                 alt="thumbnail"
-                className="w-40 h-56 object-cover rounded"
+                className="h-0 w-0 sm:w-40 sm:h-56 object-cover rounded"
               />
               <div className="info">
                 <h1 className="font-bitter tracking-wide text-(--color-top)">
@@ -174,7 +174,9 @@ const Modal = ({ show, bookItem, onClose }) => {
                   {dateModalStatus && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
                       <div className="bg-(--bg-top) p-4 rounded-md shadow-lg text-center">
-                        <p className="mb-2 font-semibold">Select Date</p>
+                        <p className="mb-2 font-semibold text-base">
+                          Select Date
+                        </p>
                         <input
                           type="date"
                           value={selectedDate}
@@ -184,7 +186,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
                         <div className="flex justify-center gap-2 mt-3">
                           <button
-                            className="bg-(--accent)/90 text-(--color-highlight) px-3 py-1 rounded"
+                            className="bg-(--accent)/90 text-(--color-highlight) text-base px-3 py-1 rounded"
                             onClick={() => {
                               handleOptionClick(dateModalStatus, selectedDate);
                               setDateModalStatus(null);
@@ -194,7 +196,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                           </button>
 
                           <button
-                            className="bg-(--bg-bottom) px-3 py-1 rounded"
+                            className="bg-(--bg-bottom) text-base px-3 py-1 rounded"
                             onClick={() => setDateModalStatus(null)}
                           >
                             Cancel
