@@ -22,7 +22,8 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
             {bookData.map((book) => {
               let thumbnail = book.item.imageLinks?.thumbnail;
               let rating = book.item.averageRating;
-              let printType = book.item.printType;
+              let myRating = book.rating;
+              let isbn = book.item.industryIdentifiers[1].identifier;
 
               if (!thumbnail) thumbnail = noImg;
 
@@ -42,7 +43,13 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
                       {book.item.title}
                     </h4>
                     <p className="rating absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-stone-200 text-center text-xs font-bold p-1">
-                      {`${printType}${rating ? '  ⭐' + rating : ''}`}
+                      {`${
+                        myRating
+                          ? 'My Rating ⭐' + myRating
+                          : rating
+                          ? 'Ave Rating ⭐' + rating
+                          : 'ISBN: ' + isbn
+                      }`}
                     </p>
                   </div>
                 </div>

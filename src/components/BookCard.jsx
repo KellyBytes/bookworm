@@ -96,7 +96,7 @@ const BookCard = ({
                 max={bookItem.item.pageCount}
                 value={finishedPages}
                 onChange={(e) => setFinishedPages(e.target.value)}
-                className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4"
+                className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4 focus:placeholder:text-transparent"
                 placeholder="#"
               />
               of {bookItem.item.pageCount}

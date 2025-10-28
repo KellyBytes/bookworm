@@ -37,10 +37,10 @@ const Browse = ({ bookData, searchBook }) => {
         <div className="card-container max-w-4xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
           {bookData.map((book) => {
             let thumbnail = book.volumeInfo.imageLinks?.thumbnail;
-            let amount = book.saleInfo.listPrice?.amount
-              ? '$' + book.saleInfo.listPrice?.amount
-              : 'Price u/a';
+            let amount = book.saleInfo.listPrice?.amount;
             let printType = book.volumeInfo.printType;
+            let rating = book.volumeInfo.averageRating;
+            let isbn = book.volumeInfo.industryIdentifiers[1].identifier;
 
             if (!thumbnail) thumbnail = noImg;
 
@@ -60,7 +60,13 @@ const Browse = ({ bookData, searchBook }) => {
                     {book.volumeInfo.title}
                   </h4>
                   <p className="amount absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-stone-200 text-center text-xs font-bold p-1">
-                    {`${printType} - ${amount}`}
+                    {`${
+                      rating
+                        ? 'Ave Rating ⭐' + rating
+                        : amount
+                        ? '$' + amount
+                        : 'ISBN: ' + isbn
+                    }`}
                   </p>
                 </div>
               </div>
@@ -84,7 +90,7 @@ const Browse = ({ bookData, searchBook }) => {
               <button
                 key={category}
                 onClick={() => searchBook(`subject:${category}`)}
-                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) dark:bg-(--bg-top) dark:border dark:border-(--border-base) hover:scale-[0.98] hover:opacity-80 transition-opacity transition-scale duration-200 active:translate-y-2"
+                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) dark:bg-(--bg-top) dark:border dark:border-(--border-base) hover:scale-[0.98] hover:opacity-80 transition duration-200 active:translate-y-1"
               >
                 {category}
               </button>

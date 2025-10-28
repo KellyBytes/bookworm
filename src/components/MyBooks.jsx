@@ -167,7 +167,7 @@ const MyBooks = ({
                 {/* Scroll area */}
                 <div
                   ref={scrollRef}
-                  className="flex gap-4 p-4 bg-(--bg-bottom) overflow-x-auto no-scrollbar scroll-smooth"
+                  className="flex gap-4 p-4 bg-(--bg-bottom) border border-(--border-base) rounded overflow-x-auto no-scrollbar scroll-smooth"
                 >
                   {currentlyReading.map((book, index) => (
                     <BookCard

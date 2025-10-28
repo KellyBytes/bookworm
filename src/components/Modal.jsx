@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
+import noImg from '../assets/images/no-img.png';
 
 const Modal = ({ show, bookItem, onClose }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [message, setMessage] = useState('');
   const [dateModalStatus, setDateModalStatus] = useState(null); // 'Read' or 'Currently Reading'
+  const [rating, setRating] = useState(0);
+  const [notes, setNotes] = useState('');
   const today = new Date().toLocaleDateString('en-CA');
-  const [selectedDate, setSelectedDate] = useState(today);
   const [selectedStartDate, setSelectedStartDate] = useState(today);
   const [selectedDueDate, setSelectedDueDate] = useState('');
   const [selectedFinishedDate, setSelectedFinishedDate] = useState(today);
@@ -15,6 +17,54 @@ const Modal = ({ show, bookItem, onClose }) => {
     document.body.style.overflow = show ? 'hidden' : 'auto';
     return () => (document.body.style.overflow = 'auto');
   }, [show]);
+
+  useEffect(() => {
+    if (!bookItem) return;
+    const storedBooks = JSON.parse(localStorage.getItem('myBooks') || []);
+    const existing = storedBooks.find((b) => b.id === bookItem.id);
+    if (existing) {
+      setRating(existing.rating || 0);
+      setNotes(existing.notes || '');
+    } else {
+      setRating(0);
+      setNotes('');
+    }
+  }, [bookItem]);
+
+  const saveToLocalStorage = (newRating = rating, newNotes = notes) => {
+    const storedBooks = JSON.parse(localStorage.getItem('myBooks') || []);
+    const target = storedBooks.find((b) => b.id === bookItem.id);
+    if (target) {
+      target.rating = newRating;
+      target.notes = newNotes;
+      localStorage.setItem('myBooks', JSON.stringify(storedBooks));
+    }
+  };
+
+  const handleRatingClick = (num) => {
+    setRating(num);
+    saveToLocalStorage(num, notes);
+  };
+
+  const handleNotesChange = (e) => {
+    const newNotes = e.target.value;
+    setNotes(newNotes);
+    saveToLocalStorage(rating, newNotes);
+  };
+
+  const renderMyStars = (ratingValue) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span
+        key={i}
+        onClick={() => handleRatingClick(i + 1)}
+        className={`cursor-pointer text-2xl transition-transform duration-150 ${
+          i < ratingValue ? 'text-yellow-400' : 'text-gray-400'
+        } hover:scale-110`}
+      >
+        ★
+      </span>
+    ));
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -113,7 +163,7 @@ const Modal = ({ show, bookItem, onClose }) => {
           <div className="inner-scroll h-full overflow-y-auto no-scrollbar">
             <div className="inner-container flex justify-center gap-x-6">
               <img
-                src={thumbnail}
+                src={thumbnail || noImg}
                 alt="thumbnail"
                 className="h-0 w-0 sm:w-40 sm:h-56 object-cover rounded"
               />
@@ -278,6 +328,28 @@ const Modal = ({ show, bookItem, onClose }) => {
                 </div>
               </div>
             </div>
+
+            {(bookItem.status === 'Currently Reading' ||
+              bookItem.status === 'Read') && (
+              <div className="review-section flex flex-col gap-y-4 my-8 p-4 border-t border-b border-(--border-base)">
+                <div className="my-rating">
+                  <p className="text-base font-semibold mb-1">My Rating</p>
+                  <div className="flex items-center gap-1">
+                    {renderMyStars(rating)}
+                  </div>
+                </div>
+
+                <div className="notes">
+                  <p className="text-base font-semibold mb-2">Notes</p>
+                  <textarea
+                    value={notes}
+                    onChange={handleNotesChange}
+                    placeholder="Write your thoughts here..."
+                    className="w-full min-h-24 p-2 text-sm border rounded bt-(--bg-base) focus:outline-none focus:ring-1 focus:ring-(--accent) focus:placeholder:text-transparent"
+                  />
+                </div>
+              </div>
+            )}
 
             <p className="description mt-8 text-pretty text-sm">
               {item.description}
