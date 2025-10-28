@@ -6,6 +6,9 @@ const Modal = ({ show, bookItem, onClose }) => {
   const [dateModalStatus, setDateModalStatus] = useState(null); // 'Read' or 'Currently Reading'
   const today = new Date().toLocaleDateString('en-CA');
   const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedStartDate, setSelectedStartDate] = useState(today);
+  const [selectedDueDate, setSelectedDueDate] = useState('');
+  const [selectedFinishedDate, setSelectedFinishedDate] = useState(today);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -29,19 +32,34 @@ const Modal = ({ show, bookItem, onClose }) => {
   let item = bookItem.volumeInfo || bookItem.item;
   let thumbnail = item.imageLinks?.thumbnail;
 
-  const handleOptionClick = (status, customDate) => {
+  const handleOptionClick = (status, dateObj) => {
     const storedBooks = JSON.parse(localStorage.getItem('myBooks') || '[]');
-    const date = customDate || today;
+    const today = new Date().toLocaleDateString('en-CA');
 
     if (status === 'Remove') {
       const updated = storedBooks.filter((b) => b.id !== bookItem.id);
       localStorage.setItem('myBooks', JSON.stringify(updated));
       setMessage('Book Removed!');
     } else {
+      let date = '';
+
+      if (status === 'Currently Reading') {
+        date = {
+          start: dateObj?.start || today,
+          due: dateObj?.due || '',
+        };
+      } else if (status === 'Read') {
+        date = { finished: dateObj?.finished || today };
+      } else if (status === 'Want to Read') {
+        date = '';
+      } else {
+        date = dateObj || today;
+      }
+
       const newBook = {
         id: bookItem.id,
         status,
-        date: status === 'Want to Read' ? '' : date,
+        date,
         item,
       };
 
@@ -174,21 +192,72 @@ const Modal = ({ show, bookItem, onClose }) => {
                   {dateModalStatus && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
                       <div className="bg-(--bg-top) p-4 rounded-md shadow-lg text-center">
-                        <p className="mb-2 font-semibold text-base">
-                          Select Date
+                        <p className="mb-2 font-semibold text-lg">
+                          {dateModalStatus === 'Currently Reading'
+                            ? 'Select Dates'
+                            : 'Select Date'}
                         </p>
-                        <input
-                          type="date"
-                          value={selectedDate}
-                          className="border px-2-py-1"
-                          onChange={(e) => setSelectedDate(e.target.value)}
-                        />
+
+                        {dateModalStatus === 'Currently Reading' ? (
+                          <>
+                            {/* Start Date */}
+                            <label className="flex items-center mb-2 text-base">
+                              <span className="inline-block w-28 text-left">
+                                Started on:
+                              </span>
+                              <input
+                                type="date"
+                                value={selectedStartDate}
+                                onChange={(e) =>
+                                  setSelectedStartDate(e.target.value)
+                                }
+                                className="border px-2 py-1 ml-2"
+                              />
+                            </label>
+                            {/* Due Date */}
+                            <label className="flex items-center mb-2 text-base">
+                              <span className="inline-block w-28 text-left">
+                                Due (optional):
+                              </span>
+                              <input
+                                type="date"
+                                value={selectedDueDate}
+                                onChange={(e) =>
+                                  setSelectedDueDate(e.target.value)
+                                }
+                                className="border px-2 py-1 ml-2"
+                              />
+                            </label>
+                          </>
+                        ) : (
+                          // For "Read"
+                          <label className="block mb-2 text-base">
+                            Finished on:
+                            <input
+                              type="date"
+                              value={selectedFinishedDate}
+                              onChange={(e) =>
+                                setSelectedFinishedDate(e.target.value)
+                              }
+                              className="border px-2 py-1 ml-2"
+                            />
+                          </label>
+                        )}
 
                         <div className="flex justify-center gap-2 mt-3">
                           <button
                             className="bg-(--accent)/90 text-(--color-highlight) text-base px-3 py-1 rounded"
                             onClick={() => {
-                              handleOptionClick(dateModalStatus, selectedDate);
+                              if (dateModalStatus === 'Currently Reading') {
+                                handleOptionClick(dateModalStatus, {
+                                  start: selectedStartDate,
+                                  due: selectedDueDate || '',
+                                });
+                              } else {
+                                handleOptionClick(dateModalStatus, {
+                                  finished: selectedFinishedDate,
+                                });
+                              }
                               setDateModalStatus(null);
                             }}
                           >
