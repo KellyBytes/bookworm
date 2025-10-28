@@ -61,6 +61,7 @@ const Modal = ({ show, bookItem, onClose }) => {
         status,
         date,
         item,
+        finished: 0,
       };
 
       const updated = storedBooks
@@ -117,7 +118,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                 className="h-0 w-0 sm:w-40 sm:h-56 object-cover rounded"
               />
               <div className="info">
-                <h1 className="font-bitter tracking-wide text-(--color-top)">
+                <h1 className="font-merriweather tracking-wide text-(--color-top)">
                   {item.title}
                 </h1>
                 <h3 className="mt-3 font-serrat font-semibold text-(--color-muted)">
@@ -190,7 +191,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                   )}
 
                   {dateModalStatus && (
-                    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+                    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999]">
                       <div className="bg-(--bg-top) p-4 rounded-md shadow-lg text-center">
                         <p className="mb-2 font-semibold text-lg">
                           {dateModalStatus === 'Currently Reading'

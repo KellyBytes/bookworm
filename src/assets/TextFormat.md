@@ -12,7 +12,7 @@ res.data
  ├─ searchInfo:
  │   └─ textSnippet: 'By the end of this book, you'll...'
  ├─ selfLink: "https://www.googleapis.com/books/v1/volumes/0KQbEAAAQBAJ"
- └─ volumeInfo
+ └─ volumeInfo (= book.item)
      ├─ authors: (2) ['Majid M. Heravi', 'Vahideh Zadsirjan']
      ├─ averageRating: 4.5
      ├─ canonicalVolumeLink: "https://play.google.com/store/books/..."

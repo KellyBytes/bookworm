@@ -2,23 +2,35 @@
 
 @import url(https://fonts.googleapis.com/css?family=Bitter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&display=swap);
 
+@import url(https://fonts.googleapis.com/css?family=Caprasimo:regular&display=swap);
+
 @import url(https://fonts.googleapis.com/css?family=Comfortaa:300,regular,500,600,700&display=swap);
 
 @import url(https://fonts.googleapis.com/css?family=Eczar:regular,500,600,700,800&display=swap);
 
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&display=swap);
 
-@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@import url(https://fonts.googleapis.com/css?family=Libre+Baskerville:regular,italic,700&display=swap);
+
+@import url(https://fonts.googleapis.com/css?family=Merriweather:300,regular,500,600,700,800,900,300italic,italic,500italic,600italic,700italic,800italic,900italic&display=swap);
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic&display=swap);
+
+@import url(https://fonts.googleapis.com/css?family=Pacifico:regular&display=swap);
 
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", sans-serif;
-  --font-bitter: "Bitter", serif;
+  --font-bio: "BioRhyme", serif;
+  --font-merriweather: "Merriweather", serif;
   --font-serrat: "Montserrat", sans-serif;
+
+  --font-bitter: "Bitter", serif;
+  --font-libre: "Libre Baskerville", serif;
   --font-comfortaa: "Comfortaa", sans-serif;
   --font-eczar: "Eczar", serif;
-  --font-bio: "BioRhyme", serif;
+  --font-pacifico: "Pacifico", serif;
 }
 
 @layer base {
@@ -38,12 +50,17 @@
   .scroll-snap-center {
     scroll-snap-align: center;
   }
+
+  .scroll-snap-start {
+    scroll-snap-align: start;
+  }
 }
 
 :root {
-  --bg-bottom: hsl(20 5.9% 88%); /* stone-200 (hsl(20 5.9% 90%)) */
-  --bg-base: #fafaf9; /* stone-50 */
   --bg-top: hsl(60 4.8% 93%); /* stone-100 (hsl(60 4.8% 95.9%)) */
+  --bg-base: #fafaf9; /* stone-50 */
+  --bg-bottom: hsl(20 5.9% 88%); /* stone-200 (hsl(20 5.9% 90%)) */
+  --bg-muted: #d6d3d1; /* stone-300 */
 
   --color-top: #292524; /* stone-800 */
   --color-base: #44403c; /* stone-700 */
@@ -52,8 +69,8 @@
 
   --primary: #92400e; /* amber-800 */
   --secondary: #ca8a04; /* yellow-600 */
-  --accent: #0444ca; /* hsl(221 96.1% 40.4%) */
-  --accent-muted: hsl(221 96.1% 85%);
+  --accent: hsl(203 96.1% 43%); /* hsl(221 96.1% 40.4%) */
+  --accent-muted: hsl(203 96.1% 85%);
 
   --border-base: hsl(24 5.4% 68%); /* stone-400 + lightness 4% */
 
@@ -71,9 +88,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-bottom: hsl(0 0% 15%);
-    --bg-base: #171717; /* neutral-900 (hsl(0 0% 9%)) */
     --bg-top: hsl(0 0% 20%);
+    --bg-base: #171717; /* neutral-900 (hsl(0 0% 9%)) */
+    --bg-bottom: hsl(0 0% 15%);
+    --bg-muted: hsl(0 0% 25%);
 
     --color-top: #fafafa; /* neutral-50 */
     --color-base: #e5e5e5; /* neutral-200 */
@@ -148,11 +166,11 @@ h3,
   line-height: 1.75rem;
 }
 
-span {
+/* span {
   font-weight: inherit;
   font-size: inherit;
   line-height: inherit;
-}
+} */
 
 /* Form elements */
 input,

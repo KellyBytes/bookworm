@@ -56,7 +56,7 @@ const Browse = ({ bookData, searchBook }) => {
                   className="w-full h-54 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
                 />
                 <div className="bottom flex flex-col">
-                  <h4 className="title font-bitter font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
+                  <h4 className="title font-merriweather font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
                     {book.volumeInfo.title}
                   </h4>
                   <p className="amount absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-stone-200 text-center text-xs font-bold p-1">
