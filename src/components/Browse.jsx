@@ -38,9 +38,14 @@ const Browse = ({ bookData, searchBook }) => {
           {bookData.map((book) => {
             let thumbnail = book.volumeInfo.imageLinks?.thumbnail;
             let amount = book.saleInfo.listPrice?.amount;
-            let printType = book.volumeInfo.printType;
             let rating = book.volumeInfo.averageRating;
-            let isbn = book.volumeInfo.industryIdentifiers[1].identifier;
+            let isbn =
+              book.volumeInfo.industryIdentifiers?.find(
+                (id) => id.type === 'ISBN_13'
+              )?.identifier ||
+              book.volumeInfo.industryIdentifiers?.[0]?.identifier ||
+              'No ISBN';
+            let printType = book.volumeInfo.printType;
 
             if (!thumbnail) thumbnail = noImg;
 
@@ -65,7 +70,9 @@ const Browse = ({ bookData, searchBook }) => {
                         ? 'Ave Rating ⭐' + rating
                         : amount
                         ? '$' + amount
-                        : 'ISBN: ' + isbn
+                        : isbn
+                        ? 'ISBN: ' + isbn
+                        : printType
                     }`}
                   </p>
                 </div>

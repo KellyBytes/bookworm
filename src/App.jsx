@@ -14,7 +14,7 @@ const App = () => {
     setShowBrowse(true);
     let formatted = query.trim().replace(/\s+/g, '+');
     const api_key = import.meta.env.VITE_GBOOKS_API_KEY;
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${formatted}&key=${api_key}&maxResults-40`;
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${formatted}&key=${api_key}&maxResults=40`;
 
     axios
       .get(url)

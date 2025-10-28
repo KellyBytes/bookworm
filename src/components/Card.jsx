@@ -23,7 +23,12 @@ const Card = ({ bookData, showWantToRead, setShowBottomGrid, setMyBooks }) => {
               let thumbnail = book.item.imageLinks?.thumbnail;
               let rating = book.item.averageRating;
               let myRating = book.rating;
-              let isbn = book.item.industryIdentifiers[1].identifier;
+              let isbn =
+                book.item.industryIdentifiers?.find(
+                  (id) => id.type === 'ISBN_13'
+                )?.identifier ||
+                book.item.industryIdentifiers?.[0]?.identifier ||
+                'No ISBN';
 
               if (!thumbnail) thumbnail = noImg;
 
