@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Card from './Card';
 import Modal from './Modal';
 import noImg from '../assets/images/no-img.png';
+import BookCard from './BookCard';
 
 const MyBooks = ({
   showWantToRead,
@@ -16,6 +17,7 @@ const MyBooks = ({
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [finishedPages, setFinishedPages] = useState(0);
   const [selectedBookId, setSelectedBookId] = useState(null);
+
   const scrollRef = useRef(null);
   const itemRefs = useRef([]);
   const isClickRef = useRef(false);
@@ -168,262 +170,24 @@ const MyBooks = ({
                   className="flex gap-4 p-4 bg-(--bg-bottom) overflow-x-auto no-scrollbar scroll-smooth"
                 >
                   {currentlyReading.map((book, index) => (
-                    <div className="flex flex-col sm:flex-row gap-4 p-4 bg-(--bg-base) rounded shadow-md">
-                      <div
-                        key={book.id}
-                        ref={(el) => {
-                          if (el) itemRefs.current[index] = el;
-                        }}
-                        className="w-32 shrink-0 hover:opacity-80 hover:scale-[0.98] duration-200 scroll-snap-center cursor-pointer"
-                        onClick={() => {
-                          setBookItem(book);
-                          setShow(true);
-                        }}
-                      >
-                        {/* book.item = volumeInfo */}
-                        <img
-                          src={book.item.imageLinks?.thumbnail}
-                          alt={book.item.title}
-                          className="w-full h-40 object-cover rounded border border-(--border-base)"
-                        />
-                        <p className="font-merriweather font-semibold text-sm mt-2 line-clamp-2 text-center h-11 flex items-center justify-center leading-snug">
-                          {book.item.title}
-                        </p>
-                      </div>
-
-                      {book.date.due && (
-                        <div className="progress flex justify-center items-center gap-x-4">
-                          <div className="pages-to-read w-24 flex flex-col items-center gap-y-2 px-4">
-                            <h1 className="font-semibold mt-4">
-                              {pagesToReadToday(
-                                book.finished || 0,
-                                book.item.pageCount,
-                                remainingDays(book.date.due)
-                              )}
-                            </h1>
-                            <small className="text-center mb-2">
-                              pages for today
-                            </small>
-                            <button
-                              className="bg-(--accent) text-(--color-highlight) text-sm uppercase border border-(--border-base) rounded shadow py-2 px-3 hover:opacity-80 hover:scale-[0.98] duration-200"
-                              onClick={() => {
-                                setSelectedBookId(book.id);
-                                setShowProgressModal(true);
-                              }}
-                            >
-                              Update
-                            </button>
-                          </div>
-
-                          {showProgressModal && (
-                            <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-                              <div className="bg-(--bg-base) rounded-lg p-6 w-64 flex flex-col items-center shadow-md">
-                                <h3 className="font-semibold mb-4">
-                                  Update Progress
-                                </h3>
-                                <label className="w-full inline-block text-center">
-                                  Page
-                                  <input
-                                    type="number"
-                                    min="0"
-                                    max={book.item.pageCount}
-                                    value={finishedPages}
-                                    onChange={(e) =>
-                                      setFinishedPages(e.target.value)
-                                    }
-                                    className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4"
-                                    placeholder="#"
-                                  />
-                                  of {book.item.pageCount}
-                                </label>
-                                <div className="flex gap-4">
-                                  <button
-                                    className="bg-(--accent)/90 text-(--color-highlight) px-4 py-2 rounded hover:opacity-80 hover:scale-[0.98] duration-200"
-                                    onClick={handleSave}
-                                  >
-                                    Save
-                                  </button>
-                                  <button
-                                    className="bg-(--bg-bottom) px-4 py-2 rounded hover:opacity-80 hover:scale-[0.98] duration-200"
-                                    onClick={() => setShowProgressModal(false)}
-                                  >
-                                    Cancel
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          <div className="progress-percentage flex flex-col">
-                            <div className="pages-circle relative w-24 h-24">
-                              <svg
-                                className="w-full h-full"
-                                viewBox="0 0 36 36"
-                              >
-                                {/* Background circle */}
-                                <path
-                                  className="text-(--bg-muted)"
-                                  stroke="currentColor"
-                                  strokeWidth="3"
-                                  fill="none"
-                                  d="M18 2.0845
-                                  a 15.9155 15.9155 0 0 1 0 31.831
-                                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                                />
-                                {/* Progress circle */}
-                                <path
-                                  // className="text-green-500"
-                                  className="text-(--accent)"
-                                  stroke="currentColor"
-                                  strokeWidth="3"
-                                  strokeDasharray={`${
-                                    (book.finished / book.item.pageCount) * 100
-                                  }, 100`}
-                                  strokeLinecap="round"
-                                  fill="none"
-                                  d="M18 2.0845
-                                  a 15.9155 15.9155 0 0 1 0 31.831
-                                  a 15.9155 15.9155 0 0 1 0 -31.831"
-                                />
-                              </svg>
-                              {/* Center text */}
-                              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-md font-semibold">
-                                  {`${Math.ceil(
-                                    (book.finished / book.item.pageCount) * 100
-                                  )}%`}
-                                </span>
-                                <span className="text-[0.625rem] text-(--color-muted)">
-                                  Read
-                                </span>
-                              </div>
-                            </div>
-                            <div className="text-center mt-2">
-                              <small>Page {book.finished}</small>
-                              <br />
-                              <small>of {book.item.pageCount}</small>
-                            </div>
-                          </div>
-
-                          <div className="progress-days flex flex-col">
-                            <div className="days-circle relative w-24 h-24">
-                              <svg
-                                className="w-full h-full"
-                                viewBox="0 0 36 36"
-                              >
-                                {(() => {
-                                  const total = totalDays(
-                                    book.date.start,
-                                    book.date.due
-                                  );
-                                  const remaining = remainingDays(
-                                    book.date.due
-                                  );
-                                  const anglePerSegment = 360 / total;
-                                  const gap = 15; // degrees for divisions
-                                  const radius = 15.9155;
-                                  // Starting from top, clockwise
-                                  const polarToCartesian = (
-                                    cx,
-                                    cy,
-                                    r,
-                                    angle
-                                  ) => {
-                                    const rad = (angle - 0) * (Math.PI / 180);
-                                    return {
-                                      x: cx + r * Math.cos(rad),
-                                      y: cy + r * Math.sin(rad),
-                                    };
-                                  };
-                                  const describeArc = (
-                                    cx,
-                                    cy,
-                                    r,
-                                    startAngle,
-                                    endAngle
-                                  ) => {
-                                    const start = polarToCartesian(
-                                      cx,
-                                      cy,
-                                      r,
-                                      startAngle
-                                    );
-                                    const end = polarToCartesian(
-                                      cx,
-                                      cy,
-                                      r,
-                                      endAngle
-                                    );
-                                    const largeArcFlag =
-                                      endAngle - startAngle <= 180 ? 0 : 1;
-                                    return [
-                                      'M',
-                                      start.x,
-                                      start.y,
-                                      'A',
-                                      r,
-                                      r,
-                                      0,
-                                      largeArcFlag,
-                                      1,
-                                      end.x,
-                                      end.y,
-                                    ].join(' ');
-                                  };
-                                  return Array.from({ length: total }).map(
-                                    (_, i) => {
-                                      // Starting from top, clockwise
-                                      const startAngle =
-                                        270 + i * anglePerSegment + gap / 2;
-                                      const endAngle =
-                                        270 +
-                                        (i + 1) * anglePerSegment -
-                                        gap / 2;
-                                      const isRemaining = i < remaining; // green for remaining
-                                      return (
-                                        <path
-                                          key={i}
-                                          d={describeArc(
-                                            18,
-                                            18,
-                                            radius,
-                                            startAngle,
-                                            endAngle
-                                          )}
-                                          stroke={
-                                            isRemaining
-                                              ? // ? '#22c55e'
-                                                'var(--accent)'
-                                              : 'var(--bg-muted)'
-                                          }
-                                          strokeWidth="3"
-                                          fill="none"
-                                          strokeLinecap="round"
-                                        />
-                                      );
-                                    }
-                                  );
-                                })()}
-                              </svg>
-                              {/* Center text */}
-                              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                <span className="text-md font-semibold">
-                                  {remainingDays(book.date.due)}
-                                </span>
-                                <span className="text-[0.625rem] text-(--color-muted)">
-                                  days left
-                                </span>
-                              </div>
-                            </div>
-                            <div className="text-center mt-2">
-                              <small>Started on </small>
-                              <br />
-                              <small>{book.date.start}</small>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                    <BookCard
+                      key={book.id}
+                      book={book}
+                      index={index}
+                      itemRefs={itemRefs}
+                      setBookItem={setBookItem}
+                      setShow={setShow}
+                      setShowProgressModal={setShowProgressModal}
+                      setSelectedBookId={setSelectedBookId}
+                      setFinishedPages={setFinishedPages}
+                      setMyBooks={setMyBooks}
+                      pagesToReadToday={pagesToReadToday}
+                      remainingDays={remainingDays}
+                      totalDays={totalDays}
+                      showProgressModal={showProgressModal}
+                      bookItem={bookItem}
+                      handleSave={handleSave}
+                    />
                   ))}
                 </div>
 

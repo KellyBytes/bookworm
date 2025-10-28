@@ -1,0 +1,237 @@
+import { useState, useEffect } from 'react';
+import noImg from '../assets/images/no-img.png';
+
+const BookCard = ({
+  book,
+  index,
+  itemRefs,
+  setBookItem,
+  setShow,
+  setShowProgressModal,
+  setSelectedBookId,
+  finishedPages,
+  setFinishedPages,
+  setMyBooks,
+  pagesToReadToday,
+  remainingDays,
+  totalDays,
+  showProgressModal,
+  bookItem,
+  handleSave,
+}) => {
+  const [mobilePage, setMobilePage] = useState(0); // 0: progress bar, 1: days circle
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div className="h-72 flex flex-col sm:flex-row gap-2 p-4 bg-(--bg-base) rounded shadow-md relative">
+      {/* Left: image, title, progress bar */}
+      <div className="flex flex-col align-items">
+        {(!isMobile || mobilePage === 0) && (
+          <>
+            <div
+              ref={(el) => {
+                if (el) itemRefs.current[index] = el;
+              }}
+              className="w-32 shrink-0 hover:opacity-80 hover:scale-[0.98] duration-200 scroll-snap-center cursor-pointer"
+              onClick={() => {
+                setBookItem(book);
+                setShow(true);
+              }}
+            >
+              {/* book.item = volumeInfo */}
+              <img
+                src={book.item?.imageLinks?.thumbnail || noImg}
+                alt={book.item.title}
+                className="w-full h-40 object-cover rounded border border-(--border-base)"
+              />
+              <p className="w-full h-6 whitespace-nowrap font-merriweather font-semibold text-sm mt-2 text-ellipsis overflow-hidden leading-snug">
+                {book.item.title}
+              </p>
+            </div>
+
+            {/* Progress bar section */}
+            <div
+              className="progress-percentage flex flex-col items-center mt-2 hover:opacity-80 hover:scale-[0.98] cursor-pointer group"
+              onClick={() => {
+                setSelectedBookId(book.id);
+                setBookItem(book);
+                setShowProgressModal(true);
+              }}
+            >
+              {/* Progress bar */}
+              <div className="w-full h-2 bg-(--bg-muted) rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-(--accent) group-hover:bg-(--secondary) rounded-full duration-200"
+                  style={{
+                    width: `${(book.finished / book.item.pageCount) * 100}%`,
+                  }}
+                ></div>
+              </div>
+              <div className="text-center">
+                <small>
+                  <i className="bx bx-book-open align-middle mr-1 text-(--accent) group-hover:text-(--secondary) duration-200"></i>
+                  Page {book.finished} of {book.item.pageCount}
+                </small>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {showProgressModal && (
+        <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
+          <div className="bg-(--bg-base) rounded-lg p-6 w-64 flex flex-col items-center shadow-md">
+            <h3 className="font-semibold mb-4">Update Progress</h3>
+            <label className="w-full inline-block text-center">
+              Page
+              <input
+                type="number"
+                min="0"
+                max={bookItem.item.pageCount}
+                value={finishedPages}
+                onChange={(e) => setFinishedPages(e.target.value)}
+                className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4"
+                placeholder="#"
+              />
+              of {bookItem.item.pageCount}
+            </label>
+            <div className="flex gap-4">
+              <button
+                className="bg-(--accent)/90 text-(--color-highlight) px-4 py-2 rounded hover:opacity-80 hover:scale-[0.98] duration-200"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+              <button
+                className="bg-(--bg-bottom) px-4 py-2 rounded hover:opacity-80 hover:scale-[0.98] duration-200"
+                onClick={() => setShowProgressModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {book.date.due && (!isMobile || mobilePage === 1) && (
+        <div className="progress w-32 flex flex-col justify-center items-center gap-y-4">
+          <div className="pages-to-read w-24 flex flex-col items-center px-4">
+            <small className="text-center font-semibold">
+              <i className="bx bx-target align-middle mr-0.5 text-(--accent)"></i>
+              Today
+            </small>
+            <h1 className="font-semibold mt-2">
+              {pagesToReadToday(
+                book.finished || 0,
+                book.item.pageCount,
+                remainingDays(book.date.due)
+              )}
+            </h1>
+            <small className="text-center mb-2">pages</small>
+          </div>
+
+          <div className="progress-days flex flex-col">
+            <div className="days-circle relative w-20 h-20">
+              <svg className="w-full h-full" viewBox="0 0 36 36">
+                {(() => {
+                  const total = totalDays(book.date.start, book.date.due);
+                  const remaining = remainingDays(book.date.due);
+                  const anglePerSegment = 360 / total;
+                  const gap = 15; // degrees for divisions
+                  const radius = 15.9155;
+                  // Starting from top, clockwise
+                  const polarToCartesian = (cx, cy, r, angle) => {
+                    const rad = (angle - 0) * (Math.PI / 180);
+                    return {
+                      x: cx + r * Math.cos(rad),
+                      y: cy + r * Math.sin(rad),
+                    };
+                  };
+                  const describeArc = (cx, cy, r, startAngle, endAngle) => {
+                    const start = polarToCartesian(cx, cy, r, startAngle);
+                    const end = polarToCartesian(cx, cy, r, endAngle);
+                    const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+                    return [
+                      'M',
+                      start.x,
+                      start.y,
+                      'A',
+                      r,
+                      r,
+                      0,
+                      largeArcFlag,
+                      1,
+                      end.x,
+                      end.y,
+                    ].join(' ');
+                  };
+                  return Array.from({ length: total }).map((_, i) => {
+                    // Starting from top, clockwise
+                    const startAngle = 270 + i * anglePerSegment + gap / 2;
+                    const endAngle = 270 + (i + 1) * anglePerSegment - gap / 2;
+                    const isRemaining = i < remaining; // green for remaining
+                    return (
+                      <path
+                        key={i}
+                        d={describeArc(18, 18, radius, startAngle, endAngle)}
+                        stroke={
+                          isRemaining
+                            ? // ? '#22c55e'
+                              'var(--accent)'
+                            : 'var(--bg-muted)'
+                        }
+                        strokeWidth="3"
+                        fill="none"
+                        strokeLinecap="round"
+                      />
+                    );
+                  });
+                })()}
+              </svg>
+              {/* Center text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-lg font-semibold leading-4">
+                  {remainingDays(book.date.due)}
+                </span>
+                <span className="text-[0.7rem] text-(--color-muted)">
+                  days left
+                </span>
+              </div>
+            </div>
+            <div className="text-center leading-4 mt-2">
+              <small className="text-(--color-muted)">Started on </small>
+              <br />
+              <small>{book.date.start}</small>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Only mobile: Dot navigation */}
+      {isMobile && book.date.due && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center gap-2 mt-2">
+          <button
+            className={`w-3 h-3 rounded-full ${
+              mobilePage === 0 ? 'bg-(--secondary)' : 'bg-gray-400'
+            }`}
+            onClick={() => setMobilePage(0)}
+          />
+          <button
+            className={`w-3 h-3 rounded-full ${
+              mobilePage === 1 ? 'bg-(--secondary)' : 'bg-gray-400'
+            }`}
+            onClick={() => setMobilePage(1)}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default BookCard;
