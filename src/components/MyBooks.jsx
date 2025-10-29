@@ -222,15 +222,15 @@ const MyBooks = ({
           />
 
           {/* Bottom Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div
               className="want-to-read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
               onClick={() => setShowWantToRead(true)}
             >
-              <h3 className="font-semibold text-(--color-top) pb-8">
+              <h3 className="font-semibold text-center text-(--color-top) pb-8">
                 Want to Read
               </h3>
-              <div className="flex items-center gap-8">
+              <div className="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8">
                 <div className="relative w-20 h-28">
                   {wantToRead.length > 0 ? (
                     latestThreeWantToRead.map((book, index) => (
@@ -266,8 +266,10 @@ const MyBooks = ({
               className="read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
               onClick={() => setShowRead(true)}
             >
-              <h3 className="font-semibold text-(--color-top) pb-8">Read</h3>
-              <div className="flex items-center gap-8">
+              <h3 className="font-semibold text-center text-(--color-top) pb-8">
+                Read
+              </h3>
+              <div className="flex flex-col sm:flex-row items-center gap-y-4 gap-x-8">
                 <div className="relative w-20 h-28">
                   {latestThreeRead.length > 0 ? (
                     latestThreeRead.map((book, index) => (
