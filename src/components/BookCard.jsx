@@ -96,8 +96,8 @@ const BookCard = ({
                 max={bookItem.item.pageCount}
                 value={finishedPages}
                 onChange={(e) => setFinishedPages(e.target.value)}
-                className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4 focus:placeholder:text-transparent"
-                placeholder="#"
+                className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4 placeholder:text-(--color-muted) focus:placeholder:text-transparent"
+                placeholder="No."
               />
               of {bookItem.item.pageCount}
             </label>
@@ -215,19 +215,25 @@ const BookCard = ({
 
       {/* Only mobile: Dot navigation */}
       {isMobile && book.date.due && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center gap-2 mt-2">
-          <button
-            className={`w-3 h-3 rounded-full ${
-              mobilePage === 0 ? 'bg-(--secondary)' : 'bg-gray-400'
-            }`}
-            onClick={() => setMobilePage(0)}
-          />
-          <button
-            className={`w-3 h-3 rounded-full ${
-              mobilePage === 1 ? 'bg-(--secondary)' : 'bg-gray-400'
-            }`}
-            onClick={() => setMobilePage(1)}
-          />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center mt-2">
+          {[0, 1].map((page) => (
+            <button
+              key={page}
+              className={`relative w-20 px-6 py-1 rounded-b-xl text-sm transition-all duration-200
+                ${
+                  mobilePage === page
+                    ? 'text-(--accent) shadow-lg'
+                    : 'bg-(--bg-muted)/50 text-(--color-base) opacity-70'
+                }`}
+              onClick={() => setMobilePage(page)}
+            >
+              {page === 0 ? (
+                <i className="bx bx-info-circle text-base" />
+              ) : (
+                <i className="bx bx-calendar-detail text-base" />
+              )}
+            </button>
+          ))}
         </div>
       )}
     </div>
