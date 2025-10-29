@@ -17,6 +17,7 @@ const MyBooks = ({
   const [showProgressModal, setShowProgressModal] = useState(false);
   const [finishedPages, setFinishedPages] = useState(0);
   const [selectedBookId, setSelectedBookId] = useState(null);
+  const [manualPageCount, setManualPageCount] = useState('');
 
   const scrollRef = useRef(null);
   const itemRefs = useRef([]);
@@ -64,12 +65,21 @@ const MyBooks = ({
     return diffDays;
   };
 
-  const updateBookProgress = (id, finished) => {
+  const updateBookProgress = (bookId, finishedPages, totalPages) => {
     const updatedBooks = myBooks.map((b) =>
-      b.id === id ? { ...b, finished } : b
+      b.id === bookId
+        ? {
+            ...b,
+            finished: finishedPages,
+            total: totalPages,
+          }
+        : b
     );
+
     setMyBooks(updatedBooks);
     localStorage.setItem('myBooks', JSON.stringify(updatedBooks));
+
+    return updatedBooks.find((b) => b.id === bookId);
   };
 
   const pagesToReadToday = (finished, total, remainingDays) => {
@@ -80,12 +90,27 @@ const MyBooks = ({
   };
 
   const handleSave = () => {
-    // if (finishedPages.trim() === '') return;
     if (!selectedBookId) return;
 
-    updateBookProgress(selectedBookId, Number(finishedPages));
+    const bookItem = myBooks.find((book) => book.id === selectedBookId);
+    if (!bookItem) return;
+
+    const totalPages =
+      bookItem.item.pageCount && bookItem.item.pageCount > 0
+        ? bookItem.item.pageCount
+        : manualPageCount;
+
+    const updatedBook = updateBookProgress(
+      selectedBookId,
+      Number(finishedPages),
+      totalPages
+    );
+
+    if (updatedBook) setBookItem(updatedBook);
+
     setShowProgressModal(false);
     setFinishedPages('');
+    setManualPageCount(0);
     setSelectedBookId(null);
   };
 
@@ -187,6 +212,8 @@ const MyBooks = ({
                       showProgressModal={showProgressModal}
                       bookItem={bookItem}
                       handleSave={handleSave}
+                      manualPageCount={manualPageCount}
+                      setManualPageCount={setManualPageCount}
                     />
                   ))}
                 </div>

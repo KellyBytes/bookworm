@@ -18,6 +18,8 @@ const BookCard = ({
   showProgressModal,
   bookItem,
   handleSave,
+  manualPageCount,
+  setManualPageCount,
 }) => {
   const [mobilePage, setMobilePage] = useState(0); // 0: progress bar, 1: days circle
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
@@ -69,14 +71,19 @@ const BookCard = ({
                 <div
                   className="h-full bg-(--accent) group-hover:bg-(--secondary) rounded-full duration-200"
                   style={{
-                    width: `${(book.finished / book.item.pageCount) * 100}%`,
+                    width: `${
+                      (book.finished /
+                        (book.item.pageCount || book.total || 1)) *
+                      100
+                    }%`,
                   }}
                 ></div>
               </div>
               <div className="text-center">
                 <small>
                   <i className="bx bx-book-open align-middle mr-1 text-(--accent) group-hover:text-(--secondary) duration-200"></i>
-                  Page {book.finished} of {book.item.pageCount}
+                  Page {book.finished} of{' '}
+                  {book.total ?? book.item.pageCount ?? '?'}
                 </small>
               </div>
             </div>
@@ -86,21 +93,45 @@ const BookCard = ({
 
       {showProgressModal && (
         <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-          <div className="bg-(--bg-base) rounded-lg p-6 w-64 flex flex-col items-center shadow-md">
+          <div className="bg-(--bg-base) rounded-lg w-64 flex flex-col items-center p-6 shadow-md">
             <h3 className="font-semibold mb-4">Update Progress</h3>
-            <label className="w-full inline-block text-center">
+
+            {(!bookItem.item.pageCount || bookItem.item.pageCount === 0) &&
+              !bookItem.total && (
+                <label className="w-full text-left text-nowrap text-base mb-4">
+                  Total pages
+                  <input
+                    type="number"
+                    min="1"
+                    value={manualPageCount || ''}
+                    onChange={(e) => setManualPageCount(Number(e.target.value))}
+                    className="w-28 border border-(--border-base) rounded p-2 ml-2 text-left placeholder:text-(--color-muted) focus:placeholder:text-transparent"
+                    placeholder="Total No."
+                  />
+                </label>
+              )}
+
+            <label className="w-full inline-block text-left text-base">
               Page
               <input
                 type="number"
                 min="0"
-                max={bookItem.item.pageCount}
+                max={
+                  bookItem.item.pageCount && bookItem.item.pageCount > 0
+                    ? bookItem.item.pageCount
+                    : bookItem.total || 0
+                }
                 value={finishedPages}
                 onChange={(e) => setFinishedPages(e.target.value)}
-                className="w-20 border border-(--border-base) rounded p-2 text-center mx-2 mb-4 placeholder:text-(--color-muted) focus:placeholder:text-transparent"
-                placeholder="No."
+                className="w-20 border border-(--border-base) rounded p-2 mx-2 mb-4 text-left placeholder:text-(--color-muted) focus:placeholder:text-transparent"
+                placeholder={bookItem.finished || 'No.'}
               />
-              of {bookItem.item.pageCount}
+              of{' '}
+              {bookItem.item.pageCount && bookItem.item.pageCount > 0
+                ? bookItem.item.pageCount
+                : bookItem.total || '?'}
             </label>
+
             <div className="flex gap-4">
               <button
                 className="bg-(--accent)/90 text-(--color-highlight) px-4 py-2 rounded hover:opacity-80 hover:scale-[0.98] duration-200"
