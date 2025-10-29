@@ -50,7 +50,7 @@ const BookCard = ({
                 alt={book.item.title}
                 className="w-full h-40 object-cover rounded border border-(--border-base)"
               />
-              <p className="w-full h-6 whitespace-nowrap font-merriweather font-semibold text-sm mt-2 text-ellipsis overflow-hidden leading-snug">
+              <p className="w-full h-6 font-merriweather font-semibold text-xs sm:text-sm text-center whitespace-nowrap text-ellipsis overflow-hidden leading-snug px-1 mt-2">
                 {book.item.title}
               </p>
             </div>
