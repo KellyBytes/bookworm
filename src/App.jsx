@@ -7,11 +7,13 @@ import Footer from './components/Footer';
 const App = () => {
   const [showBrowse, setShowBrowse] = useState(true);
   const [bookData, setBookData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [showWantToRead, setShowWantToRead] = useState(false);
   const [showRead, setShowRead] = useState(false);
 
   const searchBook = (query) => {
     setShowBrowse(true);
+    setLoading(true);
     let formatted = query.trim().replace(/\s+/g, '+');
     const api_key = import.meta.env.VITE_GBOOKS_API_KEY;
     let url = `https://www.googleapis.com/books/v1/volumes?q=${formatted}&key=${api_key}&maxResults=40`;
@@ -19,10 +21,14 @@ const App = () => {
     axios
       .get(url)
       .then((res) => {
-        setBookData(res.data.items);
+        setBookData(res.data.items || []);
         console.log(res.data.items);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setBookData([]);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -38,6 +44,7 @@ const App = () => {
       <Main
         bookData={bookData}
         searchBook={searchBook}
+        loading={loading}
         showBrowse={showBrowse}
         showWantToRead={showWantToRead}
         setShowWantToRead={setShowWantToRead}

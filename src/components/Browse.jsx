@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import noImg from '../assets/images/no-img.png';
 
-const Browse = ({ bookData, searchBook }) => {
+const Browse = ({ bookData, searchBook, loading }) => {
   const [show, setShow] = useState(false);
   const [bookItem, setBookItem] = useState(null);
 
@@ -33,8 +33,15 @@ const Browse = ({ bookData, searchBook }) => {
 
   return (
     <>
-      {bookData && bookData.length > 0 ? (
-        <div className="card-container max-w-4xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+      {loading ? (
+        <div className="fixed inset-0 bg-(bg-top)/70 backdrop-blur-sm flex flex-col justify-center items-center z-50">
+          <div className="w-12 h-12 border-4 border(--accent) border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-lg font-semibold text-(--color-muted)">
+            Loading...
+          </p>
+        </div>
+      ) : bookData && bookData.length > 0 ? (
+        <div className="card-container max-w-4xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 mt-8">
           {bookData.map((book) => {
             let thumbnail = book.volumeInfo.imageLinks?.thumbnail;
             let amount = book.saleInfo.listPrice?.amount;
@@ -51,20 +58,20 @@ const Browse = ({ bookData, searchBook }) => {
 
             return (
               <div
-                className="card w-52 bg-(--bg-top) border border-(--border-base) rounded p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
+                className="card w-34 sm:w-52 bg-(--bg-top) border border-(--border-base) rounded p-2 sm:p-3 mb-2 shadow-lg hover:scale-[0.98] hover:opacity-80 duration-200 relative"
                 key={book.id}
                 onClick={() => handleClick(book)}
               >
                 <img
                   src={thumbnail}
                   alt="thumbnail"
-                  className="w-full h-54 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
+                  className="w-full h-36 sm:h-54 object-cover border border-(--border-base) rounded-tl rounded-tr rounded-br-none rounded-bl-none"
                 />
                 <div className="bottom flex flex-col">
-                  <h4 className="title font-merriweather font-medium tracking-wide text-center text-sm line-clamp-2 mt-2 mb-8">
+                  <h4 className="title w-full h-6 font-merriweather font-semibold text-xs sm:text-sm text-center whitespace-nowrap text-ellipsis overflow-hidden leading-snug px-1 mt-2 mb-6">
                     {book.volumeInfo.title}
                   </h4>
-                  <p className="amount absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-stone-200 text-center text-xs font-bold p-1">
+                  <p className="absolute bottom-3 left-3 right-3 bg-(--accent)/80 text-(--color-highlight) text-[0.625rem] sm:text-xs font-bold text-center whitespace-nowrap text-ellipsis overflow-hidden p-1">
                     {`${
                       rating
                         ? 'Ave Rating ⭐' + rating

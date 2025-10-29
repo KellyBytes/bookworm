@@ -4,6 +4,7 @@ import MyBooks from './MyBooks';
 const Main = ({
   bookData,
   searchBook,
+  loading,
   showBrowse,
   showWantToRead,
   setShowWantToRead,
@@ -11,10 +12,10 @@ const Main = ({
   setShowRead,
 }) => {
   return (
-    <main className="w-full flex justify-start items-center px-8 mt-0 lg:mt-20">
+    <main className="w-full flex justify-start items-center px-4 sm:px-8 mt-0 lg:mt-20">
       {/* <Card bookData={bookData} /> */}
       {showBrowse ? (
-        <Browse bookData={bookData} searchBook={searchBook} />
+        <Browse bookData={bookData} searchBook={searchBook} loading={loading} />
       ) : (
         <MyBooks
           showWantToRead={showWantToRead}
