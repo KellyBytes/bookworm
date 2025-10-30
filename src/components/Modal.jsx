@@ -114,9 +114,10 @@ const Modal = ({ show, bookItem, onClose }) => {
         finished: 0,
       };
 
-      const updated = storedBooks
-        .filter((b) => b.id !== bookItem.id)
-        .concat(newBook);
+      const updated = [
+        newBook,
+        ...storedBooks.filter((b) => b.id !== bookItem.id),
+      ];
 
       localStorage.setItem('myBooks', JSON.stringify(updated));
       setMessage('Status Changed!');

@@ -66,20 +66,21 @@ const MyBooks = ({
   };
 
   const updateBookProgress = (bookId, finishedPages, totalPages) => {
-    const updatedBooks = myBooks.map((b) =>
-      b.id === bookId
-        ? {
-            ...b,
-            finished: finishedPages,
-            total: totalPages,
-          }
-        : b
-    );
+    const updatedBook = myBooks.find((b) => b.id === bookId);
+    if (!updatedBook) return null;
+
+    const newBook = {
+      ...updatedBook,
+      finished: finishedPages,
+      total: totalPages,
+    };
+
+    const updatedBooks = [newBook, ...myBooks.filter((b) => b.id !== bookId)];
 
     setMyBooks(updatedBooks);
     localStorage.setItem('myBooks', JSON.stringify(updatedBooks));
 
-    return updatedBooks.find((b) => b.id === bookId);
+    return newBook;
   };
 
   const pagesToReadToday = (finished, total, remainingDays) => {
@@ -92,12 +93,12 @@ const MyBooks = ({
   const handleSave = () => {
     if (!selectedBookId) return;
 
-    const bookItem = myBooks.find((book) => book.id === selectedBookId);
-    if (!bookItem) return;
+    const targetBook = myBooks.find((book) => book.id === selectedBookId);
+    if (!targetBook) return;
 
     const totalPages =
-      bookItem.item.pageCount && bookItem.item.pageCount > 0
-        ? bookItem.item.pageCount
+      targetBook.item.pageCount && targetBook.item.pageCount > 0
+        ? targetBook.item.pageCount
         : manualPageCount;
 
     const updatedBook = updateBookProgress(
@@ -106,11 +107,13 @@ const MyBooks = ({
       totalPages
     );
 
-    if (updatedBook) setBookItem(updatedBook);
+    if (updatedBook) {
+      setBookItem(updatedBook);
+      setFinishedPages(updatedBook.finished || 0);
+      setManualPageCount(updatedBook.total || '');
+    }
 
     setShowProgressModal(false);
-    setFinishedPages('');
-    setManualPageCount(0);
     setSelectedBookId(null);
   };
 

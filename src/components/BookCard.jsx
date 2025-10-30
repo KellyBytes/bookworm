@@ -63,6 +63,8 @@ const BookCard = ({
               onClick={() => {
                 setSelectedBookId(book.id);
                 setBookItem(book);
+                // setFinishedPages(book.finished || 0)
+                // setManualPageCount(book.total || '')
                 setShowProgressModal(true);
               }}
             >
@@ -73,7 +75,7 @@ const BookCard = ({
                   style={{
                     width: `${
                       (book.finished /
-                        (book.item.pageCount || book.total || 1)) *
+                        (book.total || book.item.pageCount || 1)) *
                       100
                     }%`,
                   }}
