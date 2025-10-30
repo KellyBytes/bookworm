@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { ThemeProvider } from './context/ThemeContext';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
@@ -42,25 +43,27 @@ const App = () => {
 
   return (
     <>
-      <Header
-        showBrowse={showBrowse}
-        setShowBrowse={setShowBrowse}
-        setBookData={setBookData}
-        searchBook={searchBook}
-        setShowWantToRead={setShowWantToRead}
-        setShowRead={setShowRead}
-      />
-      <Main
-        bookData={bookData}
-        searchBook={searchBook}
-        loading={loading}
-        showBrowse={showBrowse}
-        showWantToRead={showWantToRead}
-        setShowWantToRead={setShowWantToRead}
-        showRead={showRead}
-        setShowRead={setShowRead}
-      />
-      <Footer />
+      <ThemeProvider>
+        <Header
+          showBrowse={showBrowse}
+          setShowBrowse={setShowBrowse}
+          setBookData={setBookData}
+          searchBook={searchBook}
+          setShowWantToRead={setShowWantToRead}
+          setShowRead={setShowRead}
+        />
+        <Main
+          bookData={bookData}
+          searchBook={searchBook}
+          loading={loading}
+          showBrowse={showBrowse}
+          showWantToRead={showWantToRead}
+          setShowWantToRead={setShowWantToRead}
+          showRead={showRead}
+          setShowRead={setShowRead}
+        />
+        <Footer />
+      </ThemeProvider>
     </>
   );
 };

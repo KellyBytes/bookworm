@@ -104,7 +104,7 @@ const Browse = ({ bookData, searchBook, loading }) => {
               <button
                 key={category}
                 onClick={() => searchBook(`subject:${category}`)}
-                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) dark:bg-(--bg-top) dark:border dark:border-(--border-base) hover:scale-[0.98] hover:opacity-80 transition duration-200 active:translate-y-1"
+                className="px-3 py-1 rounded shadow-sm bg-(--bg-bottom) dark:bg-(--bg-top) dark:border dark:border-(--border-base) hover:scale-[0.98] hover:opacity-80 duration-200 active:translate-y-1"
               >
                 {category}
               </button>

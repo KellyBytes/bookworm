@@ -68,6 +68,25 @@
   --padding-large: 2rem;
 }
 
+:root.dark {
+  --bg-top: hsl(0 0% 20%);
+  --bg-base: #171717; /* neutral-900 (hsl(0 0% 9%)) */
+  --bg-bottom: hsl(0 0% 15%);
+  --bg-muted: hsl(0 0% 25%);
+
+  --color-top: #fafafa; /* neutral-50 */
+  --color-base: #e5e5e5; /* neutral-200 */
+  --color-muted: #a3a3a3; /* neutral-400 */
+  --color-highlight: #fafaf9; /* stone-50 */
+
+  --primary: #b45309; /* amber-700 */
+  --secondary: #eab308; /* yellow-500 */
+  --accent: #083fea; /* hsl(225 93.4% 47.5%) */
+  --accent-muted: hsl(225 93.4% 65%);
+
+  --border-base: #404040; /* neutral-700 */
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-top: hsl(0 0% 20%);
