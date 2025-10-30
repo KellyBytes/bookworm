@@ -11,7 +11,7 @@ A ReactJS Reading Tracker web application built with Tailwind CSS and Google Boo
 - Set due and check remaining days and how many pages to read today
 - Add your own ratings and notes to Read and Currently Reading books
 - Responsive design
-- Switch between Dark Mode and Light Mode automatically
+- Switch between Dark Mode and Light Mode with mode switcher
 
 ### Built with
 - ReactJS
