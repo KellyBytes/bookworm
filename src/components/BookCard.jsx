@@ -150,7 +150,7 @@ const BookCard = ({
         </div>
       )}
 
-      {book.date.due && (!isMobile || mobilePage === 1) && (
+      {book?.date?.due && (!isMobile || mobilePage === 1) && (
         <div className="progress w-32 flex flex-col justify-center items-center gap-y-4">
           <div className="pages-to-read w-24 flex flex-col items-center px-4">
             <small className="text-center font-semibold">
@@ -245,7 +245,7 @@ const BookCard = ({
       )}
 
       {/* Only mobile: Dot navigation */}
-      {isMobile && book.date.due && (
+      {isMobile && book?.date?.due && (
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center mt-2">
           {[0, 1].map((page) => (
             <button
