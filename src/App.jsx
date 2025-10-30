@@ -11,6 +11,15 @@ const App = () => {
   const [showWantToRead, setShowWantToRead] = useState(false);
   const [showRead, setShowRead] = useState(false);
 
+  // Bug Test
+  window.addEventListener('error', (e) => {
+    alert('⚠️ JS Error: ' + e.message);
+  });
+
+  window.addEventListener('unhandledrejection', (e) => {
+    alert('⚠️ Promise Rejection: ' + e.reason);
+  });
+
   const searchBook = (query) => {
     setShowBrowse(true);
     setLoading(true);

@@ -34,7 +34,7 @@ const Browse = ({ bookData, searchBook, loading }) => {
   return (
     <>
       {loading ? (
-        <div className="fixed inset-0 bg-(bg-top)/70 backdrop-blur-sm flex flex-col justify-center items-center z-50">
+        <div className="fixed inset-0 bg-(bg-top)/70 flex flex-col justify-center items-center z-50">
           <div className="w-12 h-12 border-4 border(--accent) border-t-transparent rounded-full animate-spin"></div>
           <p className="mt-4 text-lg font-semibold text-(--color-muted)">
             Loading...

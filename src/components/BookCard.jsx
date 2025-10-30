@@ -83,7 +83,7 @@ const BookCard = ({
                 <small>
                   <i className="bx bx-book-open align-middle mr-1 text-(--accent) group-hover:text-(--secondary) duration-200"></i>
                   Page {book.finished} of{' '}
-                  {book.total ?? book.item.pageCount ?? '?'}
+                  {book.total || book.item.pageCount || '?'}
                 </small>
               </div>
             </div>
