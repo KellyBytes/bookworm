@@ -18,6 +18,7 @@ const MyBooks = ({
   const [finishedPages, setFinishedPages] = useState(0);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const [manualPageCount, setManualPageCount] = useState('');
+  const [finishMessage, setFinishMessage] = useState('');
 
   const scrollRef = useRef(null);
   const itemRefs = useRef([]);
@@ -113,6 +114,30 @@ const MyBooks = ({
       setManualPageCount(updatedBook.total || '');
     }
 
+    if (Number(finishedPages) === Number(totalPages)) {
+      const storedBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
+      const today = new Date().toLocaleDateString('en-CA');
+
+      const newBook = {
+        ...updatedBook,
+        status: 'Read',
+        date: { finished: today },
+      };
+
+      const updatedList = [
+        newBook,
+        ...storedBooks.filter((b) => b.id !== selectedBookId),
+      ];
+
+      localStorage.setItem('myBooks', JSON.stringify(updatedList));
+
+      setFinishMessage("🎉Congratulations! You've finished this book!");
+      setTimeout(() => setFinishMessage(''), 3000);
+
+      setBookItem(newBook);
+      setShow(true);
+    }
+
     setShowProgressModal(false);
     setSelectedBookId(null);
   };
@@ -193,7 +218,7 @@ const MyBooks = ({
   return (
     <>
       {!showWantToRead && !showRead ? (
-        <div className="my-books-container w-full max-w-[clamp(19rem,1.353rem+94.118vw,39rem)] sm:max-w-3xl lg:max-w-4xl mx-auto my-8">
+        <div className="my-books-container w-full max-w-[clamp(19rem,1.353rem+94.118vw,39rem)] sm:max-w-3xl lg:max-w-4xl mx-auto my-8 relative">
           <section className="currently-reading-section mb-12">
             <h2 className="font-bold text-(--color-top) mb-2">
               Currently Reading
@@ -249,6 +274,12 @@ const MyBooks = ({
               <p className="text-sm opacity-70 italic">No books yet…</p>
             )}
           </section>
+
+          {finishMessage && (
+            <div className="finish-msg fixed bottom-1/2 left-1/2 -translate-x-1/2 bg-green-700 text-white py-2 px-4 rounded-lg shadow-md animate-fade-in-out z-9999">
+              {finishMessage}
+            </div>
+          )}
 
           <Modal
             show={show}

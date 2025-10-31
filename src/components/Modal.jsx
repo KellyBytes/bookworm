@@ -20,7 +20,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
   useEffect(() => {
     if (!bookItem) return;
-    const storedBooks = JSON.parse(localStorage.getItem('myBooks') || []);
+    const storedBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
     const existing = storedBooks.find((b) => b.id === bookItem.id);
     if (existing) {
       setRating(existing.rating || 0);
@@ -32,7 +32,7 @@ const Modal = ({ show, bookItem, onClose }) => {
   }, [bookItem]);
 
   const saveToLocalStorage = (newRating = rating, newNotes = notes) => {
-    const storedBooks = JSON.parse(localStorage.getItem('myBooks') || []);
+    const storedBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
     const target = storedBooks.find((b) => b.id === bookItem.id);
     if (target) {
       target.rating = newRating;
@@ -147,7 +147,7 @@ const Modal = ({ show, bookItem, onClose }) => {
   return (
     <>
       <div
-        className="overlay min-h-100vh w-full fixed inset-0 z-[9999] bg-linear-to-br from-[rgba(0,0,0,0.7)] to-[rgba(0,0,0,0.8)] flex justify-center items-center"
+        className="overlay min-h-100vh w-full fixed inset-0 z-1000 bg-linear-to-br from-[rgba(0,0,0,0.7)] to-[rgba(0,0,0,0.8)] flex justify-center items-center"
         onClick={onClose}
       >
         <div
@@ -203,7 +203,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                       className="w-36 sm:w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--accent-muted) text-(--color-base) text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={() => setShowMenu((prev) => !prev)}
                     >
-                      My Book Status
+                      Change Status
                     </button>
 
                     {showMenu && (
@@ -242,7 +242,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                   )}
 
                   {dateModalStatus && (
-                    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999]">
+                    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-9999">
                       <div className="bg-(--bg-top) p-4 rounded-md shadow-lg text-center">
                         <p className="mb-2 font-semibold text-lg">
                           {dateModalStatus === 'Currently Reading'
