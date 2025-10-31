@@ -68,7 +68,7 @@
   --padding-large: 2rem;
 }
 
-:root.dark {
+.dark {
   --bg-top: hsl(0 0% 20%);
   --bg-base: #171717; /* neutral-900 (hsl(0 0% 9%)) */
   --bg-bottom: hsl(0 0% 15%);
