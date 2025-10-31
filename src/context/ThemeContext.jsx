@@ -3,9 +3,19 @@ import { createContext, useState, useEffect, useContext } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(
-    () => JSON.parse(localStorage.getItem('darkMode')) || false
-  );
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) {
+      setDarkMode(JSON.parse(saved));
+    } else {
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark'
+      ).matches;
+      setDarkMode(prefersDark);
+    }
+  }, []);
 
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev);
