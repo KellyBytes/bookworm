@@ -117,6 +117,14 @@ const MyBooks = ({
     setSelectedBookId(null);
   };
 
+  const handleUpdateDueDate = (bookId, newDueDate) => {
+    const updatedBooks = myBooks.map((b) =>
+      b.id === bookId ? { ...b, date: { ...b.date, due: newDueDate } } : b
+    );
+    setMyBooks(updatedBooks);
+    localStorage.setItem('myBooks', JSON.stringify(updatedBooks));
+  };
+
   // Move to the left by clicking the dot
   const scrollToItem = (index) => {
     isClickRef.current = true;
@@ -217,6 +225,7 @@ const MyBooks = ({
                       handleSave={handleSave}
                       manualPageCount={manualPageCount}
                       setManualPageCount={setManualPageCount}
+                      onUpdateDueDate={handleUpdateDueDate}
                     />
                   ))}
                 </div>

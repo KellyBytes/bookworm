@@ -203,7 +203,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                       className="w-36 sm:w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--accent-muted) text-(--color-base) text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={() => setShowMenu((prev) => !prev)}
                     >
-                      Add to My Books
+                      My Book Status
                     </button>
 
                     {showMenu && (

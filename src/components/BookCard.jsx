@@ -20,9 +20,19 @@ const BookCard = ({
   handleSave,
   manualPageCount,
   setManualPageCount,
+  onUpdateDueDate,
 }) => {
   const [mobilePage, setMobilePage] = useState(0); // 0: progress bar, 1: days circle
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+  const [isEditingDue, setIsEditingDue] = useState(false);
+  const [newDueDate, setNewDueDate] = useState(book.date.due);
+
+  const handleDateChange = (e) => {
+    const updated = e.target.value;
+    setNewDueDate(updated);
+    onUpdateDueDate(book.id, updated);
+    setIsEditingDue(false);
+  };
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
@@ -95,12 +105,12 @@ const BookCard = ({
 
       {showProgressModal && (
         <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-          <div className="bg-(--bg-base) rounded-lg w-64 flex flex-col items-center p-6 shadow-md">
+          <div className="bg-(--bg-top) rounded-lg w-64 flex flex-col items-center p-4 shadow-md">
             <h3 className="font-semibold mb-4">Update Progress</h3>
 
             {(!bookItem.item.pageCount || bookItem.item.pageCount === 0) &&
               !bookItem.total && (
-                <label className="w-full text-left text-nowrap text-base mb-4">
+                <label className="w-full text-center text-nowrap text-base mb-4">
                   Total pages
                   <input
                     type="number"
@@ -113,7 +123,7 @@ const BookCard = ({
                 </label>
               )}
 
-            <label className="w-full inline-block text-left text-base">
+            <label className="w-full inline-block text-center text-base">
               Page
               <input
                 type="number"
@@ -162,7 +172,7 @@ const BookCard = ({
             <h1 className="font-semibold mt-2">
               {pagesToReadToday(
                 book.finished || 0,
-                book.item.pageCount,
+                book.total || book.item.pageCount,
                 remainingDays(book.date.due)
               )}
             </h1>
@@ -228,13 +238,40 @@ const BookCard = ({
                 })()}
               </svg>
               {/* Center text */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-lg font-semibold leading-4">
-                  {remainingDays(book.date.due)}
-                </span>
-                <span className="text-[0.7rem] text-(--color-muted)">
-                  days left
-                </span>
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer"
+                onClick={() => setIsEditingDue(true)}
+              >
+                {isEditingDue ? (
+                  <label className="bg-(--bg-top) rounded border border-(--border-base) p-4 text-center z-50">
+                    Update Due
+                    <input
+                      type="date"
+                      value={newDueDate}
+                      onChange={handleDateChange}
+                      onBlur={() => setIsEditingDue(false)}
+                      autoFocus
+                      className="text-sm border border-(--border-base) rounded mt-1 px-1 bg-transparent text-center"
+                    />
+                  </label>
+                ) : (
+                  <>
+                    <span
+                      className={`text-lg font-semibold leading-4 ${
+                        remainingDays(book.date.due) <= 0 && 'text-rose-600'
+                      }`}
+                    >
+                      {remainingDays(book.date.due)}
+                    </span>
+                    <span
+                      className={`text-[0.7rem] text-(--color-muted) ${
+                        remainingDays(book.date.due) <= 0 && 'text-rose-600'
+                      }`}
+                    >
+                      days left
+                    </span>
+                  </>
+                )}
               </div>
             </div>
             <div className="text-center leading-4 mt-2">
