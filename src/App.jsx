@@ -11,6 +11,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [showWantToRead, setShowWantToRead] = useState(false);
   const [showRead, setShowRead] = useState(false);
+  const [searched, setSearched] = useState(false);
 
   // Bug Test
   window.addEventListener('error', (e) => {
@@ -24,6 +25,7 @@ const App = () => {
   const searchBook = (query) => {
     setShowBrowse(true);
     setLoading(true);
+    setSearched(true);
     let formatted = query.trim().replace(/\s+/g, '+');
     const api_key = import.meta.env.VITE_GBOOKS_API_KEY;
     let url = `https://www.googleapis.com/books/v1/volumes?q=${formatted}&key=${api_key}&maxResults=40`;
@@ -61,6 +63,8 @@ const App = () => {
           setShowWantToRead={setShowWantToRead}
           showRead={showRead}
           setShowRead={setShowRead}
+          searched={searched}
+          setSearched={setSearched}
         />
         <Footer />
       </ThemeProvider>

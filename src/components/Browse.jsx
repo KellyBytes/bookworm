@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from './Modal';
 import noImg from '../assets/images/no-img.png';
 
-const Browse = ({ bookData, searchBook, loading }) => {
+const Browse = ({ bookData, searchBook, loading, searched, setSearched }) => {
   const [show, setShow] = useState(false);
   const [bookItem, setBookItem] = useState(null);
 
@@ -30,6 +30,10 @@ const Browse = ({ bookData, searchBook, loading }) => {
     setBookItem(book);
     setShow(true);
   };
+
+  useEffect(() => {
+    setSearched(false);
+  }, []);
 
   return (
     <>
@@ -93,6 +97,10 @@ const Browse = ({ bookData, searchBook, loading }) => {
             onClose={() => setShow(false)}
           />
         </div>
+      ) : searched ? (
+        <p className="text-center mt-32 text-lg font-semibold text-(--color-muted">
+          No results found.
+        </p>
       ) : (
         <>
           <h2 className="hidden md:block mt-32 italic text-center text-gradient">

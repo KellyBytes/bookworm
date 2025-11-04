@@ -1,80 +1,63 @@
-# Bookworm | Reading Tracker
+# [Bookworm | Reading Tracker App](https://kb-bookworm.netlify.app "Click to launch Bookworm")
 
-## Overview
+### Screenshots
 
-A ReactJS Reading Tracker web application built with Tailwind CSS and Google Books API.
+<img src="./public/images/bookworm-desktop-1.png" width="600">
+<br/>
+<img src="./public/images/bookworm-desktop-2.png" width="600">
+<br/>
+<br/>
+<img src="./public/images/bookworm-mobile-1.png" width="600">
+<br/>
+<img src="./public/images/bookworm-mobile-2.png" width="600">
+<br/>
+<br/>
+<img src="./public/images/bookworm-modal.png" width="600">
 
-### Features
-- Search books from Google Books database
-- Save books to bookshelves -- Currently Reading, Want to Read, and Read
-- Track reading progress
-- Set due and check remaining days and how many pages to read today
-- Add your own ratings and notes to Read and Currently Reading books
-- Responsive design
-- Switch between Dark Mode and Light Mode with mode switcher
-
-### Built with
-- ReactJS
-- Tailwind CSS
-- Google Books API
 
 ---
 
-## Screenshots
+## 💡 Overview
 
-**Desktop**
+**Bookworm** is a responsive web application that helps users **track their reading progress** using data from the **Google Books API**. Users can search for books, organize them into shelves, set due dates, and view daily reading goals — all while keeping notes and ratings for future reference. All data is stored locally for persistence, and users can easily switch between light and dark themes.
 
-Book Search
+---
 
-<p>
-  <img src="./public/images/bookworm-start-light.png" width="250" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-search-results-light.png" width="250"/>
-  <br />
-  <img src="./public/images/bookworm-start-dark.png" width="250" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-search-results-dark.png" width="250"/>
-</p>
-<br />
+## ⚙️ Key Features
 
-My Books - Bookshelves and Progress
+- Search and fetch books using **Google Books API**
+- Categorize books into *Currently Reading*, *Want to Read*, and *Read* shelves
+- Track **progress**, **remaining days**, and **pages per day** dynamically
+- Add personalized **notes** and **ratings** for completed books
+- **Light/Dark mode** with a smooth theme switcher
+- Fully responsive design for all screen sizes
 
-<p>
-  <img src="./public/images/bookworm-my-books-light.png" width="250" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-my-books-dark.png" width="250"/>
-</p>
-<br />
+---
 
-Modal
+## 🧩 Tech Stack
 
-<p>
-  <img src="./public/images/bookworm-modal-status-setting.png" width="180" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-modal-dates-setting.png" width="180"/>
-</p>
-<br />
-<p>
-  <img src="./public/images/bookworm-modal-rating-and-notes.png" width="180" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-modal-rating-and-notes-mobile.png" height="240"/>
-</p>
-<br />
+- **ReactJS** – component-based UI and state management
+- **Tailwind CSS** – responsive styling and dark mode support
+- **Google Books API** – external data integration
+- **localStorage API** – persistent data storage on the client side
 
-**Mobile**
+---
 
-Book Search
+## 🧠 What I Learned
 
-<p>
-  <img src="./public/images/bookworm-start-light-mobile.png" width="200" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-search-results-light-mobile.png" width="200"/>
-  <br />
-  <img src="./public/images/bookworm-start-dark-mobile.png" width="200" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-search-results-dark-mobile.png" width="200"/>
-</p>
-<br />
+- Integrating and managing third-party APIs with **axios**
+- Designing and optimizing **localStorage data structures** for scalability
+- Refactoring reusable components and managing **state across nested components**
+- Implementing **dynamic calculations** for reading progress and deadlines
+- Creating an accessible, minimal UI adaptable to **desktop and mobile** environments
 
-My Books - Bookshelves and Progress
+---
 
-<p>
-  <img src="./public/images/bookworm-my-books-light-mobile.png" width="200" style="margin-right: 5px;"/>
-  <img src="./public/images/bookworm-my-books-dark-mobile.png" width="200"/>
-</p>
-<br />
+### 🚀 Future Improvements
 
+- Ability to manually add books not available in the Google Books database
+- Integration with external APIs to sync progress across devices
 
+---
+
+[🔼 Back to Top](#bookworm--reading-tracker-app)

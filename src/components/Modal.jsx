@@ -11,6 +11,7 @@ const Modal = ({ show, bookItem, onClose }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(today);
   const [selectedDueDate, setSelectedDueDate] = useState('');
   const [selectedFinishedDate, setSelectedFinishedDate] = useState(today);
+  const [bookStatus, setBookStatus] = useState(null);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -23,9 +24,11 @@ const Modal = ({ show, bookItem, onClose }) => {
     const storedBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
     const existing = storedBooks.find((b) => b.id === bookItem.id);
     if (existing) {
+      setBookStatus(existing.status);
       setRating(existing.rating || 0);
       setNotes(existing.notes || '');
     } else {
+      setBookStatus(null);
       setRating(0);
       setNotes('');
     }
@@ -90,6 +93,7 @@ const Modal = ({ show, bookItem, onClose }) => {
       const updated = storedBooks.filter((b) => b.id !== bookItem.id);
       localStorage.setItem('myBooks', JSON.stringify(updated));
       setMessage('Book Removed!');
+      setBookStatus(null);
     } else {
       let date = '';
 
@@ -121,6 +125,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
       localStorage.setItem('myBooks', JSON.stringify(updated));
       setMessage('Status Changed!');
+      setBookStatus(status);
     }
 
     setShowMenu(false);
@@ -203,7 +208,7 @@ const Modal = ({ show, bookItem, onClose }) => {
                       className="w-36 sm:w-48 rounded-sm mt-4 py-1.5 px-2 bg-(--accent-muted) text-(--color-base) text-sm font-semibold hover:scale-[0.98] hover:opacity-90 active:translate-y-0.5 duration-200"
                       onClick={() => setShowMenu((prev) => !prev)}
                     >
-                      Change Status
+                      {bookStatus ? bookStatus : 'Add to My Books'}
                     </button>
 
                     {showMenu && (
