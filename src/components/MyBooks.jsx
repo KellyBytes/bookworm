@@ -294,7 +294,7 @@ const MyBooks = ({
           {/* Bottom Grid */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div
-              className="want-to-read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
+              className="want-to-read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] transition-transform transition-opacity duration-200 cursor-pointer"
               onClick={() => setShowWantToRead(true)}
             >
               <h3 className="font-semibold text-center text-(--color-top) pb-8">
@@ -333,7 +333,7 @@ const MyBooks = ({
             </div>
 
             <div
-              className="read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] duration-200 cursor-pointer"
+              className="read-section bg-(--bg-top) border border-(--border-base) rounded p-6 flex flex-col items-center hover:opacity-80 hover:scale-[0.98] transition-transform transition-opacity duration-200 cursor-pointer"
               onClick={() => setShowRead(true)}
             >
               <h3 className="font-semibold text-center text-(--color-top) pb-8">
