@@ -16,6 +16,14 @@
 }
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
   a {
     @apply no-underline;
   }
@@ -69,7 +77,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.dark) {
     --bg-top: hsl(0 0% 20%);
     --bg-base: #171717; /* neutral-900 (hsl(0 0% 9%)) */
     --bg-bottom: hsl(0 0% 15%);

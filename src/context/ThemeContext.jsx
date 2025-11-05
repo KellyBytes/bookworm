@@ -11,7 +11,7 @@ export const ThemeProvider = ({ children }) => {
       setDarkMode(JSON.parse(saved));
     } else {
       const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark'
+        '(prefers-color-scheme: dark)'
       ).matches;
       setDarkMode(prefersDark);
     }
