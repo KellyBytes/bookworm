@@ -139,7 +139,7 @@ const MyBooks = ({
       localStorage.setItem('myBooks', JSON.stringify(updatedList));
 
       setFinishMessage("🎉Congratulations!\nYou've finished this book!");
-      setTimeout(() => setFinishMessage(''), 13000);
+      setTimeout(() => setFinishMessage(''), 3000);
 
       setBookItem(newBook);
       setShow(true);
