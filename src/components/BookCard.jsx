@@ -251,7 +251,7 @@ const BookCard = ({
                       onChange={handleDateChange}
                       onBlur={() => setIsEditingDue(false)}
                       autoFocus
-                      className="text-sm border border-(--border-base) rounded mt-1 px-1 bg-transparent text-center"
+                      className="text-sm border border-(--border-base) rounded mt-1 px-1 text-center"
                     />
                   </label>
                 ) : (

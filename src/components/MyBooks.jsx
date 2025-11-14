@@ -92,7 +92,7 @@ const MyBooks = ({
   };
 
   const pagesToReadToday = (finished, total, remainingDays) => {
-    if (!remainingDays) remainingDays = 1;
+    if (!remainingDays || remainingDays < 0) remainingDays = 1;
     if (!finished) finished = 0;
 
     return Math.ceil((total - finished) / remainingDays);
