@@ -180,7 +180,7 @@ const BookCard = ({
           </div>
 
           <div className="progress-days flex flex-col">
-            <div className="days-circle relative w-20 h-20">
+            <div className="days-circle relative w-20 h-20 hover:opacity-80 hover:scale-[0.98] duration-200 group">
               <svg className="w-full h-full" viewBox="0 0 36 36">
                 {(() => {
                   const total = totalDays(book?.date?.start, book?.date?.due);
@@ -223,11 +223,10 @@ const BookCard = ({
                       <path
                         key={i}
                         d={describeArc(18, 18, radius, startAngle, endAngle)}
-                        stroke={
+                        className={
                           isRemaining
-                            ? // ? '#22c55e'
-                              'var(--accent)'
-                            : 'var(--bg-muted)'
+                            ? 'stroke-(--accent) group-hover:stroke-(--secondary) duration-200'
+                            : 'stroke-(--bg-muted)'
                         }
                         strokeWidth="3"
                         fill="none"
