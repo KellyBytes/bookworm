@@ -25,7 +25,7 @@ const BookCard = ({
   const [mobilePage, setMobilePage] = useState(0); // 0: progress bar, 1: days circle
   const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
   const [isEditingDue, setIsEditingDue] = useState(false);
-  const [newDueDate, setNewDueDate] = useState(book.date.due);
+  const [newDueDate, setNewDueDate] = useState(book?.date?.due);
 
   const handleDateChange = (e) => {
     const updated = e.target.value;
@@ -173,7 +173,7 @@ const BookCard = ({
               {pagesToReadToday(
                 book.finished || 0,
                 book.total || book.item.pageCount,
-                remainingDays(book.date.due)
+                remainingDays(book?.date?.due)
               )}
             </h1>
             <small className="text-center mb-2">pages</small>
@@ -183,8 +183,8 @@ const BookCard = ({
             <div className="days-circle relative w-20 h-20">
               <svg className="w-full h-full" viewBox="0 0 36 36">
                 {(() => {
-                  const total = totalDays(book.date.start, book.date.due);
-                  const remaining = remainingDays(book.date.due);
+                  const total = totalDays(book?.date?.start, book?.date?.due);
+                  const remaining = remainingDays(book?.date?.due);
                   const anglePerSegment = 360 / total;
                   const gap = 15; // degrees for divisions
                   const radius = 15.9155;
@@ -258,14 +258,14 @@ const BookCard = ({
                   <>
                     <span
                       className={`text-lg font-semibold leading-4 ${
-                        remainingDays(book.date.due) <= 0 && 'text-rose-600'
+                        remainingDays(book?.date?.due) <= 0 && 'text-rose-600'
                       }`}
                     >
-                      {remainingDays(book.date.due)}
+                      {remainingDays(book?.date?.due)}
                     </span>
                     <span
                       className={`text-[0.7rem] text-(--color-muted) ${
-                        remainingDays(book.date.due) <= 0 && 'text-rose-600'
+                        remainingDays(book?.date?.due) <= 0 && 'text-rose-600'
                       }`}
                     >
                       days left
@@ -277,7 +277,7 @@ const BookCard = ({
             <div className="text-center leading-4 mt-2">
               <small className="text-(--color-muted)">Started on </small>
               <br />
-              <small>{book.date.start}</small>
+              <small>{book?.date?.start}</small>
             </div>
           </div>
         </div>

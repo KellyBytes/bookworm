@@ -26,7 +26,14 @@ const MyBooks = ({
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('myBooks')) || [];
-    setMyBooks(stored);
+
+    const fixed = stored.map((b) => ({
+      ...b,
+      date: b.date || {},
+    }));
+
+    setMyBooks(fixed);
+    localStorage.setItem('myBooks', JSON.stringify(fixed));
   }, []);
 
   const currentlyReading = myBooks.filter(
@@ -131,8 +138,8 @@ const MyBooks = ({
 
       localStorage.setItem('myBooks', JSON.stringify(updatedList));
 
-      setFinishMessage("🎉Congratulations! You've finished this book!");
-      setTimeout(() => setFinishMessage(''), 3000);
+      setFinishMessage("🎉Congratulations!\nYou've finished this book!");
+      setTimeout(() => setFinishMessage(''), 13000);
 
       setBookItem(newBook);
       setShow(true);
@@ -276,7 +283,7 @@ const MyBooks = ({
           </section>
 
           {finishMessage && (
-            <div className="finish-msg fixed bottom-1/2 left-1/2 -translate-x-1/2 bg-green-700 text-white py-2 px-4 rounded-lg shadow-md animate-fade-in-out z-9999">
+            <div className="finish-msg fixed bottom-1/2 left-1/2 -translate-x-1/2 w-60 bg-green-600 text-white text-center whitespace-pre-line py-2 px-4 rounded-lg shadow-md animate-fade-in-out z-9999">
               {finishMessage}
             </div>
           )}

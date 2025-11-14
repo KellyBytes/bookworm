@@ -167,7 +167,7 @@ const Modal = ({ show, bookItem, onClose }) => {
           </button>
 
           <div className="inner-scroll h-full overflow-y-auto no-scrollbar">
-            <div className="inner-container flex justify-center gap-x-6">
+            <div className="inner-container flex justify-center sm:gap-x-6">
               <img
                 src={thumbnail || noImg}
                 alt="thumbnail"
