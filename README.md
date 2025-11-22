@@ -1,6 +1,6 @@
-# Bookworm | Reading Tracker App [🔗](https://kb-bookworm.netlify.app "Click to launch Bookworm")
+# Bookworm | Reading Tracker App [↗️](https://kb-bookworm.netlify.app "Click to launch Bookworm")
 
-### Screenshots
+### 📸 Screenshots
 
 <img src="./public/images/bookworm-desktop-1.png" width="600">
 <img src="./public/images/bookworm-desktop-2.png" width="600">
@@ -54,6 +54,10 @@
 - Integration with external APIs to sync progress across devices
 
 <br/>
+
+## ▶ Live Demo
+
+🔗 https://kb-bookworm.netlify.app
 
 ---
 
