@@ -1,4 +1,4 @@
-# Bookworm | Reading Tracker App [↗️](https://kb-bookworm.netlify.app "Click to launch Bookworm")
+# Bookworm | Reading Tracker App [➚](https://kb-bookworm.netlify.app "Click to launch Bookworm")
 
 ### 📸 Screenshots
 
