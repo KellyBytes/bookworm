@@ -84,6 +84,7 @@ const Modal = ({ show, bookItem, onClose }) => {
 
   let item = bookItem.volumeInfo || bookItem.item;
   let thumbnail = item.imageLinks?.thumbnail;
+  let authors = item.authors || ['Unknown Author'];
 
   const handleOptionClick = (status, dateObj) => {
     const storedBooks = JSON.parse(localStorage.getItem('myBooks') || '[]');
@@ -178,15 +179,17 @@ const Modal = ({ show, bookItem, onClose }) => {
                   {item.title}
                 </h1>
                 <h3 className="mt-3 font-serrat font-semibold text-(--color-muted)">
-                  {item.authors.map((author, index) => (
+                  {authors.map((author, index) => (
                     <span key={`author-${index}`}>
                       {author}
-                      {index < item.authors.length - 1 && ', '}
+                      {index < authors.length - 1 && ', '}
                     </span>
                   ))}
                 </h3>
                 <h4 className="font-serrat text-sm text-(--color-muted)">
-                  {`${item.publisher}; ${item.publishedDate}; p. ${item.pageCount}`}
+                  {`${item.publisher || 'Unknown Publisher'}; ${
+                    item.publishedDate || 'n/a'
+                  }; p. ${item.pageCount || ''}`}
                 </h4>
                 {item.averageRating && (
                   <div className="flex items-center gap-2 mt-2 text-yellow-500 text-lg">
