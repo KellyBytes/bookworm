@@ -156,7 +156,7 @@ const Modal = ({ show, bookItem, onClose }) => {
         onClick={onClose}
       >
         <div
-          className="overlay-inner bg-(--bg-top) w-11/12 sm:w-xl h-4/5 lg:h-11/12 p-6 pr-8 lg:p-10 rounded-xl text-xl relative"
+          className="overlay-inner bg-(--bg-top) w-11/12 sm:w-xl lg:w-2xl h-2/3 lg:h-4/5 p-6 pr-8 lg:p-10 rounded-xl text-xl relative"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -167,7 +167,7 @@ const Modal = ({ show, bookItem, onClose }) => {
           </button>
 
           <div className="inner-scroll h-full overflow-y-auto no-scrollbar">
-            <div className="inner-container flex justify-center sm:gap-x-6">
+            <div className="inner-container flex justify-center sm:gap-x-6 lg:gap-x-16">
               <img
                 src={thumbnail || noImg}
                 alt="thumbnail"
