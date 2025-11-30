@@ -25,7 +25,50 @@ const MyBooks = ({
   const isClickRef = useRef(false);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('myBooks')) || [];
+    const stored = JSON.parse(localStorage.getItem('myBooks'));
+
+    // Set starter sample data to local storage
+    if (!stored || stored.length === 0) {
+      const sampleBook = {
+        id: 'zr5NBldVA5UC',
+        status: 'Currently Reading',
+        date: { start: '2025-11-29', due: '2026-01-31' },
+        finished: 20,
+        notes:
+          "- You can add your own notes here!\n- Change status from 'Currently Reading' to 'Want to Read', 'Read' or 'Remove'\n- Click 'More' for more details",
+        rating: 4,
+        item: {
+          title: 'And Then There Were None',
+          authors: ['Agatha Christie'],
+          averageRating: 4,
+          categories: ['Fiction'],
+          publisher: 'Macmillan',
+          publishedDate: '2004-05-03',
+          pageCount: 292,
+          description:
+            "And Then There Were None is the signature novel of Agatha Christie, the most popular work of the world's bestselling novelist. It is a masterpiece of mystery and suspense that has been a fixture in popular literature since it was originally published in 1939. First there were ten-a curious assortment of strangers summoned to a private island off the coast of Devon. Their host, an eccentric millionaire unknown to any of them, is nowhere to be found. The ten guests have precious little in common except that each has a deadly secret buried deep in their own past. And, unknown to them, each has been marked for murder. Alone on the island and trapped by foul weather, one by one the guests begin to fall prey to the hidden murderer among them. With themselves as the only suspects, only the dead are above suspicion.",
+          imageLinks: {
+            smallThumbnail:
+              'http://books.google.com/books/content?id=zr5NBldVA5UC&printsec=frontcover&img=1&zoom=5&source=gbs_api',
+            thumbnail:
+              'http://books.google.com/books/content?id=zr5NBldVA5UC&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+          },
+          industryIdentifiers: [
+            { type: 'ISBN_10', identifier: '0312330871' },
+            { type: 'ISBN_13', identifier: '9780312330873' },
+          ],
+          infoLink:
+            'http://books.google.ca/books?id=zr5NBldVA5UC&dq=subject:Classics&hl=&source=gbs_api',
+          previewLink:
+            'http://books.google.ca/books?id=zr5NBldVA5UC&dq=subject:Classics&hl=&cd=1&source=gbs_api',
+          printType: 'BOOK',
+        },
+      };
+
+      localStorage.setItem('myBooks', JSON.stringify([sampleBook]));
+      setMyBooks([sampleBook]);
+      return;
+    }
 
     const fixed = stored.map((b) => ({
       ...b,
