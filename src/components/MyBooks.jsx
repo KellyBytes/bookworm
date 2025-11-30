@@ -272,6 +272,7 @@ const MyBooks = ({
                           ? 'bg-(--secondary)'
                           : 'bg-gray-400'
                       }`}
+                      aria-label="scroll to item"
                       onClick={() => scrollToItem(index)}
                     />
                   ))}
