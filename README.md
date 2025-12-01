@@ -1,4 +1,4 @@
-# Bookworm | Reading Tracker App [➚](https://kb-bookworm.netlify.app "Click to launch Bookworm")
+# Bookworm | Reading Tracker App [➚](https://bookworm.kellybytes.dev "Click to launch Bookworm")
 
 ### 📸 Screenshots
 
@@ -57,7 +57,7 @@
 
 ## ▶ Live Demo
 
-🔗 https://kb-bookworm.netlify.app
+🔗 https://bookworm.kellybytes.dev
 
 ---
 
