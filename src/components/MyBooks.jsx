@@ -32,7 +32,7 @@ const MyBooks = ({
       const sampleBook = {
         id: 'zr5NBldVA5UC',
         status: 'Currently Reading',
-        date: { start: '2025-11-29', due: '2026-01-31' },
+        date: { start: '2026-03-01', due: '2026-04-30' },
         finished: 20,
         notes:
           "- You can add your own notes here!\n- Change status from 'Currently Reading' to 'Want to Read', 'Read' or 'Remove'\n- Click 'More' for more details",
@@ -70,7 +70,7 @@ const MyBooks = ({
       return;
     }
 
-    const fixed = stored.map((b) => ({
+    const fixed = stored.map(b => ({
       ...b,
       date: b.date || {},
     }));
@@ -80,10 +80,10 @@ const MyBooks = ({
   }, []);
 
   const currentlyReading = myBooks.filter(
-    (b) => b.status === 'Currently Reading'
+    b => b.status === 'Currently Reading',
   );
-  const wantToRead = myBooks.filter((b) => b.status === 'Want to Read');
-  const read = myBooks.filter((b) => b.status === 'Read');
+  const wantToRead = myBooks.filter(b => b.status === 'Want to Read');
+  const read = myBooks.filter(b => b.status === 'Read');
 
   const latestWantToRead = wantToRead.at(-1);
   const latestRead = read.at(-1);
@@ -104,7 +104,7 @@ const MyBooks = ({
     return diffDays;
   };
 
-  const remainingDays = (due) => {
+  const remainingDays = due => {
     if (!due) return null;
 
     const dueDate = new Date(due);
@@ -117,7 +117,7 @@ const MyBooks = ({
   };
 
   const updateBookProgress = (bookId, finishedPages, totalPages) => {
-    const updatedBook = myBooks.find((b) => b.id === bookId);
+    const updatedBook = myBooks.find(b => b.id === bookId);
     if (!updatedBook) return null;
 
     const newBook = {
@@ -126,7 +126,7 @@ const MyBooks = ({
       total: totalPages,
     };
 
-    const updatedBooks = [newBook, ...myBooks.filter((b) => b.id !== bookId)];
+    const updatedBooks = [newBook, ...myBooks.filter(b => b.id !== bookId)];
 
     setMyBooks(updatedBooks);
     localStorage.setItem('myBooks', JSON.stringify(updatedBooks));
@@ -144,7 +144,7 @@ const MyBooks = ({
   const handleSave = () => {
     if (!selectedBookId) return;
 
-    const targetBook = myBooks.find((book) => book.id === selectedBookId);
+    const targetBook = myBooks.find(book => book.id === selectedBookId);
     if (!targetBook) return;
 
     const totalPages =
@@ -155,7 +155,7 @@ const MyBooks = ({
     const updatedBook = updateBookProgress(
       selectedBookId,
       Number(finishedPages),
-      totalPages
+      totalPages,
     );
 
     if (updatedBook) {
@@ -176,7 +176,7 @@ const MyBooks = ({
 
       const updatedList = [
         newBook,
-        ...storedBooks.filter((b) => b.id !== selectedBookId),
+        ...storedBooks.filter(b => b.id !== selectedBookId),
       ];
 
       localStorage.setItem('myBooks', JSON.stringify(updatedList));
@@ -193,15 +193,15 @@ const MyBooks = ({
   };
 
   const handleUpdateDueDate = (bookId, newDueDate) => {
-    const updatedBooks = myBooks.map((b) =>
-      b.id === bookId ? { ...b, date: { ...b.date, due: newDueDate } } : b
+    const updatedBooks = myBooks.map(b =>
+      b.id === bookId ? { ...b, date: { ...b.date, due: newDueDate } } : b,
     );
     setMyBooks(updatedBooks);
     localStorage.setItem('myBooks', JSON.stringify(updatedBooks));
   };
 
   // Move to the left by clicking the dot
-  const scrollToItem = (index) => {
+  const scrollToItem = index => {
     isClickRef.current = true;
     const container = scrollRef.current;
     const item = itemRefs.current[index];
