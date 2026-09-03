@@ -32,7 +32,7 @@ const MyBooks = ({
       const sampleBook = {
         id: 'zr5NBldVA5UC',
         status: 'Currently Reading',
-        date: { start: '2026-06-20', due: '2026-07-30' },
+        date: { start: '2026-09-01', due: '2026-11-01' },
         finished: 20,
         notes:
           "- You can add your own notes here!\n- Change status from 'Currently Reading' to 'Want to Read', 'Read' or 'Remove'\n- Click 'More' for more details",
